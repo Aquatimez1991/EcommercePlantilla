@@ -1,0 +1,17 @@
+---
+import BackstageLayout from '../../layouts/BackstageLayout.astro';
+---
+<BackstageLayout title="Panel de administración" current="agregar">
+  <script>
+    if (typeof window !== 'undefined' && localStorage.getItem('backstageAuth') !== 'true') {
+      window.location.href = '/backstage/login';
+    }
+  </script>
+  <div class="max-w-xl mx-auto mt-12 bg-white rounded-xl shadow-lg p-8 text-center">
+    <h1 class="text-2xl font-bold mb-4 text-neutral-900">¡Bienvenido al Backstage!</h1>
+    <p class="mb-6 text-neutral-600">Desde aquí podrás gestionar los productos de tu tienda.</p>
+    <a href="/backstage/agregar-producto" class="inline-flex items-center gap-2 bg-accent-600 hover:bg-accent-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200">
+      <i class="bi bi-plus-circle"></i> Agregar producto
+    </a>
+  </div>
+</BackstageLayout> 

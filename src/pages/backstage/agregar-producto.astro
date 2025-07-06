@@ -1,0 +1,94 @@
+---
+import BackstageLayout from '../../layouts/BackstageLayout.astro';
+import { productos as productosData } from '../../data/productos';
+---
+<BackstageLayout title="Gestión de productos" current="agregar">
+  <!-- Serializar los datos de productos para el cliente -->
+  <script type="application/json" id="productos-data" set:html={JSON.stringify(productosData)}>
+  </script>
+
+  <script type="module">
+    // Leer los datos serializados del HTML
+    const productosData = JSON.parse(document.getElementById('productos-data').textContent);
+    let productos = JSON.parse(JSON.stringify(productosData));
+    let editIndex = null;
+    let showFields = {};
+    
+    function startEdit(idx) {
+      editIndex = idx;
+      showFields = {titulo:true, imagen:true, precio:true, descripcion:true, detalles:true, talles:true, colores:true};
+      render();
+    }
+    
+    function cancelEdit() {
+      editIndex = null;
+      render();
+    }
+    
+    function saveEdit(idx) {
+      // Solo UI, no persistente
+      editIndex = null;
+      render();
+    }
+    
+    function toggleField(field) {
+      showFields[field] = !showFields[field];
+      render();
+    }
+    
+    function render() {
+      const grid = document.getElementById('productos-grid');
+      grid.innerHTML = '';
+      productos.forEach((producto, idx) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-xl shadow-lg p-4 flex flex-col gap-3';
+        if (editIndex === idx) {
+          card.innerHTML = `
+            <div class="flex gap-2 mb-2 flex-wrap">
+              ${['titulo','imagen','precio','descripcion','detalles','talles','colores'].map(f=>`<button type='button' class='text-xs px-2 py-1 rounded ${showFields[f] ? 'bg-accent-100 text-accent-700' : 'bg-neutral-200 text-neutral-500'}' onclick='toggleField("${f}")'>${f.charAt(0).toUpperCase()+f.slice(1)}</button>`).join('')}
+            </div>
+            ${showFields.titulo ? `<input class='w-full border rounded px-2 py-1 mb-1' value='${producto.titulo}' />` : ''}
+            ${showFields.imagen ? `<input class='w-full border rounded px-2 py-1 mb-1' value='${producto.imagen}' />` : ''}
+            ${showFields.precio ? `<input class='w-full border rounded px-2 py-1 mb-1' type='number' value='${producto.precio}' />` : ''}
+            ${showFields.descripcion ? `<textarea class='w-full border rounded px-2 py-1 mb-1'>${producto.descripcion}</textarea>` : ''}
+            ${showFields.detalles ? `<textarea class='w-full border rounded px-2 py-1 mb-1'>${producto.detalles.join('\n')}</textarea>` : ''}
+            ${showFields.talles ? `<input class='w-full border rounded px-2 py-1 mb-1' value='${(producto.talles||[]).join(', ')}' />` : ''}
+            ${showFields.colores ? `<input class='w-full border rounded px-2 py-1 mb-1' value='${(producto.colores||[]).join(', ')}' />` : ''}
+            <div class='flex gap-2 mt-2'>
+              <button type='button' class='bg-accent-600 hover:bg-accent-700 text-white font-semibold px-4 py-2 rounded' onclick='saveEdit(${idx})'>Guardar</button>
+              <button type='button' class='bg-neutral-200 text-neutral-700 px-4 py-2 rounded' onclick='cancelEdit()'>Cancelar</button>
+            </div>
+          `;
+        } else {
+          card.innerHTML = `
+            <img src='${producto.imagen}' alt='${producto.titulo}' class='w-full h-40 object-cover rounded-xl mb-2'>
+            <h3 class='text-lg font-bold mb-1'>${producto.titulo}</h3>
+            <p class='text-primary-600 font-semibold mb-1'>$${producto.precio}</p>
+            <p class='text-neutral-600 text-sm mb-1'>${producto.descripcion}</p>
+            <div class='flex flex-wrap gap-1 mb-1'>${producto.detalles.map(d=>`<span class='bg-neutral-100 text-xs px-2 py-0.5 rounded'>${d}</span>`).join('')}</div>
+            ${producto.talles ? `<div class='text-xs mb-1'><b>Talles:</b> ${producto.talles.join(', ')}</div>` : ''}
+            ${producto.colores ? `<div class='text-xs mb-1'><b>Colores:</b> ${producto.colores.join(', ')}</div>` : ''}
+            <button type='button' class='bg-accent-600 hover:bg-accent-700 text-white font-semibold px-4 py-2 rounded mt-2' onclick='startEdit(${idx})'>Editar</button>
+          `;
+        }
+        grid.appendChild(card);
+      });
+    }
+    
+    // Hacer las funciones disponibles globalmente para los onclick
+    window.toggleField = toggleField;
+    window.saveEdit = saveEdit;
+    window.cancelEdit = cancelEdit;
+    window.startEdit = startEdit;
+    
+    // Renderizar inicialmente
+    render();
+  </script>
+
+  <div class="max-w-7xl mx-auto mt-8">
+    <h1 class="text-2xl font-bold mb-6 text-neutral-900 flex items-center gap-2">
+      <i class="bi bi-kanban"></i> Gestión de productos
+    </h1>
+    <div id="productos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+  </div>
+</BackstageLayout> 

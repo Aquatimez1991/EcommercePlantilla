@@ -1,0 +1,154 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<div class={`page-transition ${className}`}>
+  <slot />
+</div>
+
+<style>
+  .page-transition {
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Transición para imágenes con efecto de zoom suave */
+  .page-transition img {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+
+  .page-transition img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+
+  /* Transición para botones con efecto de elevación */
+  .page-transition button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-transition button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .page-transition button:active {
+    transform: translateY(-1px);
+  }
+
+  /* Transición para cards de productos con efecto de elevación */
+  .page-transition .product-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+
+  .page-transition .product-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Transición para enlaces */
+  .page-transition a {
+    transition: all 0.3s ease;
+  }
+
+  .page-transition a:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Transición para elementos de texto */
+  .page-transition h1,
+  .page-transition h2,
+  .page-transition h3 {
+    transition: all 0.3s ease;
+  }
+
+  .page-transition h1:hover,
+  .page-transition h2:hover,
+  .page-transition h3:hover {
+    transform: translateX(5px);
+  }
+
+  /* Transición para elementos de lista */
+  .page-transition li {
+    transition: all 0.3s ease;
+  }
+
+  .page-transition li:hover {
+    transform: translateX(10px);
+    background-color: var(--primary-50);
+    border-radius: var(--radius-md);
+    padding-left: 10px;
+  }
+
+  /* Transición para elementos de formulario */
+  .page-transition input,
+  .page-transition select,
+  .page-transition textarea {
+    transition: all 0.3s ease;
+  }
+
+  .page-transition input:focus,
+  .page-transition select:focus,
+  .page-transition textarea:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px var(--primary-100);
+  }
+
+  /* Animación de entrada escalonada para elementos hijos */
+  .page-transition > * {
+    animation: slideInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .page-transition > *:nth-child(1) { animation-delay: 0.1s; }
+  .page-transition > *:nth-child(2) { animation-delay: 0.2s; }
+  .page-transition > *:nth-child(3) { animation-delay: 0.3s; }
+  .page-transition > *:nth-child(4) { animation-delay: 0.4s; }
+  .page-transition > *:nth-child(5) { animation-delay: 0.5s; }
+  .page-transition > *:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Efecto de pulso para elementos importantes */
+  .page-transition .pulse {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  /* Transición suave para cambios de estado */
+  .page-transition * {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style> 

@@ -1,0 +1,131 @@
+---
+export interface Props {
+  currentPage?: string;
+}
+
+const { currentPage = "productos" } = Astro.props;
+---
+
+<header class="lg:hidden bg-gradient-to-r from-primary-600 to-primary-700 text-white-custom p-4 flex justify-between items-center">
+  <a href="/" class="flex items-center gap-2 text-2xl font-extrabold tracking-tight hover:scale-105 hover:text-accent-400 transition-all duration-200">
+    <i class="bi bi-shop text-3xl"></i>
+    <span>CarpiShop</span>
+  </a>
+  <button class="text-2xl" id="open-menu">
+    <i class="bi bi-list"></i>
+  </button>
+</header>
+
+<aside class="bg-gradient-to-b from-primary-600 to-primary-700 text-white-custom p-8 pr-0 sticky top-0 h-screen flex flex-col justify-between lg:block hidden">
+  <button class="lg:hidden absolute top-4 right-4 text-2xl" id="close-menu">
+    <i class="bi bi-x"></i>
+  </button>
+  
+  <header>
+    <a href="/" class="flex items-center gap-2 text-2xl font-extrabold tracking-tight hover:scale-105 hover:text-accent-400 transition-all duration-200 mb-8">
+      <i class="bi bi-shop text-3xl"></i>
+      <span>CarpiShop</span>
+    </a>
+  </header>
+  
+  <nav class="flex-1">
+    <ul class="flex flex-col gap-2">
+      {currentPage === "productos" ? (
+        <>
+          <li>
+            <button id="todos" class="boton-categoria w-full text-left cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm bg-white-custom text-primary-600 rounded-tl-xl rounded-bl-xl relative active shadow-md">
+              <i class="bi bi-hand-index-thumb-fill rotate-90"></i> Todos los productos
+            </button>
+          </li>
+          <li>
+            <button id="abrigos" class="boton-categoria w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md">
+              <i class="bi bi-hand-index-thumb rotate-90"></i> Abrigos
+            </button>
+          </li>
+          <li>
+            <button id="camisetas" class="boton-categoria w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md">
+              <i class="bi bi-hand-index-thumb rotate-90"></i> Camisetas
+            </button>
+          </li>
+          <li>
+            <button id="pantalones" class="boton-categoria w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md">
+              <i class="bi bi-hand-index-thumb rotate-90"></i> Pantalones
+            </button>
+          </li>
+          <li class="mt-8">
+            <a class="w-full text-left flex items-center gap-4 font-semibold p-4 text-sm bg-white-custom text-primary-600 rounded-tl-xl rounded-bl-xl shadow-md hover:shadow-lg transition-all duration-200" href="/carrito">
+              <i class="bi bi-cart-fill"></i>
+              Carrito
+            </a>
+          </li>
+          <li>
+            <a class="w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md" href="/backstage/login">
+              <i class="bi bi-person-badge"></i> Backstage
+            </a>
+          </li>
+        </>
+      ) : currentPage === "carrito" ? (
+        <>
+          <li>
+            <a class="w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md" href="/">
+              <i class="bi bi-arrow-return-left"></i> Seguir comprando
+            </a>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <a class="w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md" href="/">
+              <i class="bi bi-arrow-return-left"></i> Seguir comprando
+            </a>
+          </li>
+          <li>
+            <a class="w-full text-left flex items-center gap-4 font-semibold p-4 text-sm bg-white-custom text-primary-600 rounded-tl-xl rounded-bl-xl shadow-md hover:shadow-lg transition-all duration-200" href="/carrito">
+              <i class="bi bi-cart-fill"></i>
+              Carrito
+            </a>
+          </li>
+        </>
+      )}
+    </ul>
+  </nav>
+  
+  <footer>
+    <p class="text-primary-300 text-sm">© 2022 Carpi Coder</p>
+  </footer>
+</aside>
+
+<script>
+  // Funcionalidad del menú móvil
+  const openMenu = document.getElementById('open-menu');
+  const closeMenu = document.getElementById('close-menu');
+  const aside = document.querySelector('aside');
+
+  openMenu?.addEventListener('click', () => {
+    aside?.classList.remove('hidden');
+    aside?.classList.add('fixed', 'inset-0', 'z-50', 'bg-gradient-to-b', 'from-primary-600', 'to-primary-700');
+  });
+
+  closeMenu?.addEventListener('click', () => {
+    aside?.classList.add('hidden');
+    aside?.classList.remove('fixed', 'inset-0', 'z-50', 'bg-gradient-to-b', 'from-primary-600', 'to-primary-700');
+  });
+
+  // Actualizar numerito del carrito
+  function actualizarNumerito() {
+    const productosEnCarrito = JSON.parse(localStorage.getItem("cart") || "[]");
+    const totalItems = productosEnCarrito.reduce((total, item) => total + item.quantity, 0);
+    const numerito = document.getElementById('numerito');
+    if (numerito) {
+      numerito.textContent = totalItems;
+      if (totalItems > 0) {
+        numerito.classList.remove('hidden');
+      } else {
+        numerito.classList.add('hidden');
+      }
+    }
+  }
+
+  // Inicializar numerito
+  actualizarNumerito();
+</script> 

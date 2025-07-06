@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import PageTransition from '../components/PageTransition.astro';
+---
+
+<Layout title="Carrito - CarpiShop">
+  <div class="grid grid-cols-1 lg:grid-cols-5 bg-gradient-to-br from-primary-600 to-primary-700 min-h-screen">
+    <Navigation currentPage="carrito" />
+    <main class="bg-white-custom m-4 lg:m-8 lg:ml-0 rounded-2xl p-8 lg:p-12 col-span-1 lg:col-span-4">
+      <PageTransition>
+        <h2 class="text-primary-700 text-3xl font-semibold mb-8">Carrito</h2>
+        <div class="flex flex-col gap-6">
+        <p id="carrito-vacio" class="text-primary-600 text-xl text-center py-8">
+          Tu carrito está vacío. <i class="bi bi-emoji-frown"></i>
+        </p>
+
+        <div id="carrito-productos" class="hidden">
+          <!-- Esto se va a completar con el JS -->
+        </div>
+
+        <div id="carrito-acciones" class="hidden">
+          <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+              <button id="carrito-acciones-vaciar" class="bg-error-500 text-white-custom px-6 py-3 rounded-xl font-semibold hover:bg-error-600 transition-all duration-200 hover:shadow-md">
+                Vaciar carrito
+              </button>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+              <div class="flex items-center gap-2 text-xl font-semibold">
+                <p>Total:</p>
+                <p id="total" class="text-primary-600">$0</p>
+              </div>
+              <button id="carrito-acciones-comprar" class="bg-gradient-to-r from-primary-600 to-primary-700 text-white-custom px-8 py-3 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-200 hover:shadow-lg">
+                Comprar ahora
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p id="carrito-comprado" class="hidden text-accent-600 text-xl text-center py-8">
+          Muchas gracias por tu compra. <i class="bi bi-emoji-laughing"></i>
+        </p>
+      </div>
+      </PageTransition>
+    </main>
+  </div>
+
+  <script>
+    let productosEnCarrito = JSON.parse(localStorage.getItem("cart") || "[]");
+    
+    const carritoVacio = document.querySelector("#carrito-vacio");
+    const carritoProductos = document.querySelector("#carrito-productos");
+    const carritoAcciones = document.querySelector("#carrito-acciones");
+    const carritoComprado = document.querySelector("#carrito-comprado");
+    const carritoAccionesVaciar = document.querySelector("#carrito-acciones-vaciar");
+    const carritoAccionesComprar = document.querySelector("#carrito-acciones-comprar");
+    const total = document.querySelector("#total");
+
+    function cargarProductosCarrito() {
+      console.log('Cargando productos del carrito...');
+      console.log('Productos en carrito:', productosEnCarrito);
+      
+      if (!carritoProductos) return;
+
+      if (productosEnCarrito.length === 0) {
+        carritoVacio?.classList.remove("hidden");
+        carritoProductos?.classList.add("hidden");
+        carritoAcciones?.classList.add("hidden");
+        carritoComprado?.classList.add("hidden");
+      } else {
+        carritoVacio?.classList.add("hidden");
+        carritoProductos?.classList.remove("hidden");
+        carritoAcciones?.classList.remove("hidden");
+        carritoComprado?.classList.add("hidden");
+
+        carritoProductos.innerHTML = "";
+
+        productosEnCarrito.forEach(producto => {
+          const div = document.createElement("div");
+          div.classList.add("flex", "items-center", "gap-4", "p-4", "border-b", "border-gray-custom", "last:border-b-0");
+          
+          // Crear información adicional para talles y colores
+          const infoAdicional = [];
+          if (producto.size) infoAdicional.push(`Talle: ${producto.size}`);
+          if (producto.color) infoAdicional.push(`Color: ${producto.color}`);
+          const infoAdicionalHTML = infoAdicional.length > 0 ? `<div class="text-xs text-gray-500 mt-1">${infoAdicional.join(' | ')}</div>` : '';
+          
+          div.innerHTML = `
+            <a href="/productos/${producto.id}" class="block"><img class="w-16 h-16 rounded-lg object-cover transition hover:scale-105 hover:shadow-lg" src="${producto.image}" alt="${producto.title}"></a>
+            <div class="flex-1">
+              <a href="/productos/${producto.id}" class="font-semibold text-primary-700 hover:underline transition">${producto.title}</a>
+              ${infoAdicionalHTML}
+            </div>
+            <div class="text-center min-w-[110px]">
+              <small class="text-gray-600 text-xs uppercase">Cantidad</small>
+              <div class="flex items-center justify-center gap-2 mt-1">
+                <button class="btn-cantidad btn-restar bg-neutral-100 hover:bg-neutral-200 text-primary-700 rounded-full w-7 h-7 flex items-center justify-center font-bold text-lg border border-neutral-300 transition" data-producto-id="${producto.id}">-</button>
+                <span class="font-semibold w-6 inline-block text-center">${producto.quantity}</span>
+                <button class="btn-cantidad btn-sumar bg-neutral-100 hover:bg-neutral-200 text-primary-700 rounded-full w-7 h-7 flex items-center justify-center font-bold text-lg border border-neutral-300 transition" data-producto-id="${producto.id}">+</button>
+              </div>
+            </div>
+            <div class="text-center">
+              <small class="text-gray-600 text-xs uppercase">Precio</small>
+              <p class="font-semibold">$${producto.price}</p>
+            </div>
+            <div class="text-center">
+              <small class="text-gray-600 text-xs uppercase">Subtotal</small>
+              <p class="font-semibold text-primary-600">$${producto.price * producto.quantity}</p>
+            </div>
+            <button class="btn-eliminar text-error-500 hover:text-error-600 transition-all duration-200 p-2 hover:scale-110" data-producto-id="${producto.id}">
+              <i class="bi bi-trash-fill text-xl"></i>
+            </button>
+          `;
+          carritoProductos.append(div);
+        });
+
+        actualizarTotal();
+        actualizarBotonesEliminar();
+        actualizarBotonesCantidad();
+        console.log('Productos del carrito cargados correctamente');
+      }
+    }
+
+    function actualizarTotal() {
+      const totalCalculado = productosEnCarrito.reduce((acc, producto) => acc + (producto.price * producto.quantity), 0);
+      if (total) total.innerText = `$${totalCalculado}`;
+    }
+
+    function actualizarBotonesEliminar() {
+      const botonesEliminar = document.querySelectorAll(".btn-eliminar");
+      console.log('Botones de eliminar encontrados:', botonesEliminar.length);
+      botonesEliminar.forEach(boton => {
+        boton.addEventListener("click", eliminarDelCarrito);
+      });
+    }
+
+    function eliminarDelCarrito(e) {
+      console.log('Botón eliminar clickeado');
+      const idBoton = e.currentTarget.getAttribute('data-producto-id');
+      console.log('ID del producto a eliminar:', idBoton);
+      const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
+      console.log('Índice del producto:', index);
+      
+      if (index !== -1) {
+        console.log('Eliminando producto del carrito');
+        productosEnCarrito.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(productosEnCarrito));
+        window.dispatchEvent(new Event('cart-updated'));
+        cargarProductosCarrito();
+      } else {
+        console.log('Producto no encontrado en el carrito');
+      }
+    }
+
+    function vaciarCarrito() {
+      productosEnCarrito = [];
+      localStorage.setItem("cart", JSON.stringify(productosEnCarrito));
+      window.dispatchEvent(new Event('cart-updated'));
+      cargarProductosCarrito();
+    }
+
+    function comprarCarrito() {
+      productosEnCarrito = [];
+      localStorage.setItem("cart", JSON.stringify(productosEnCarrito));
+      window.dispatchEvent(new Event('cart-updated'));
+      
+      carritoVacio?.classList.add("hidden");
+      carritoProductos?.classList.add("hidden");
+      carritoAcciones?.classList.add("hidden");
+      carritoComprado?.classList.remove("hidden");
+    }
+
+    function actualizarBotonesCantidad() {
+      const botonesSumar = document.querySelectorAll('.btn-sumar');
+      const botonesRestar = document.querySelectorAll('.btn-restar');
+      botonesSumar.forEach(boton => {
+        boton.addEventListener('click', function() {
+          const id = this.getAttribute('data-producto-id');
+          const index = productosEnCarrito.findIndex(p => p.id === id);
+          if (index !== -1) {
+            productosEnCarrito[index].quantity++;
+            localStorage.setItem("cart", JSON.stringify(productosEnCarrito));
+            window.dispatchEvent(new Event('cart-updated'));
+            cargarProductosCarrito();
+          }
+        });
+      });
+      botonesRestar.forEach(boton => {
+        boton.addEventListener('click', function() {
+          const id = this.getAttribute('data-producto-id');
+          const index = productosEnCarrito.findIndex(p => p.id === id);
+          if (index !== -1 && productosEnCarrito[index].quantity > 1) {
+            productosEnCarrito[index].quantity--;
+            localStorage.setItem("cart", JSON.stringify(productosEnCarrito));
+            window.dispatchEvent(new Event('cart-updated'));
+            cargarProductosCarrito();
+          }
+        });
+      });
+    }
+
+    // Event listeners
+    carritoAccionesVaciar?.addEventListener("click", vaciarCarrito);
+    carritoAccionesComprar?.addEventListener("click", comprarCarrito);
+
+    // Inicializar
+    console.log('Inicializando página del carrito...');
+    console.log('Productos en carrito al cargar:', productosEnCarrito);
+    cargarProductosCarrito();
+    console.log('Página del carrito inicializada');
+  </script>
+</Layout> 

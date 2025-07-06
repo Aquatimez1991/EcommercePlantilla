@@ -1,0 +1,255 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageTransition from '../../components/PageTransition.astro';
+import { productos } from '../../data/productos';
+
+export async function getStaticPaths() {
+  return productos.map((producto) => ({
+    params: { id: producto.id },
+    props: { producto },
+  }));
+}
+
+const { producto } = Astro.props;
+---
+
+<Layout title={`${producto.titulo} - CarpiShop`}>
+  <PageTransition>
+    <html lang="es" class="overflow-x-hidden">
+    <div class="min-h-screen bg-gradient-to-br from-primary-50 to-neutral-100 py-8 overflow-x-hidden">
+      <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-12">
+      <!-- Breadcrumb -->
+      <nav class="flex mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center bg-white/80 rounded-xl px-4 py-2 shadow-sm border border-primary-100 gap-2 text-base font-semibold">
+          <li class="flex items-center">
+            <a href="/" class="flex items-center gap-1 text-primary-700 hover:text-accent-500 transition-colors duration-200">
+              <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+              </svg>
+              <span>Inicio</span>
+            </a>
+          </li>
+          <li class="mx-2 text-primary-300">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+          </li>
+          <li class="flex items-center">
+            <a href="/" class="flex items-center gap-1 text-primary-700 hover:text-accent-500 transition-colors duration-200">
+              <span>{producto.categoria.nombre}</span>
+            </a>
+          </li>
+          <li class="mx-2 text-primary-300">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+          </li>
+          <li class="flex items-center">
+            <span class="text-primary-900 font-bold">{producto.titulo}</span>
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Product Details -->
+      <div class="w-full bg-white rounded-2xl shadow-lg p-4 md:p-6 flex flex-col lg:flex-row gap-4 items-center border border-neutral-200 mx-auto overflow-x-hidden">
+        <!-- Product Image -->
+        <div class="flex-1 flex items-center justify-center w-full max-w-md min-w-0">
+          <img 
+            src={producto.imagen} 
+            alt={producto.titulo}
+            class="rounded-xl w-full object-cover object-center shadow-lg max-h-[340px] md:max-h-[380px] lg:max-h-[400px]"
+            style="filter: brightness(1);"
+          />
+        </div>
+        <!-- Product Info -->
+        <div class="flex-[1.2] flex flex-col justify-center w-full space-y-5 min-w-0">
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2 break-words">{producto.titulo}</h1>
+            <p class="text-2xl font-semibold text-primary-600">${producto.precio.toLocaleString()}</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Descripción</h3>
+            <p class="text-gray-600 leading-relaxed">{producto.descripcion}</p>
+          </div>
+          <!-- Product Details -->
+          <div>
+            <h3 class="text-lg font-medium text-gray-900 mb-3">Características</h3>
+            <ul class="space-y-2">
+              {producto.detalles.map((detalle) => (
+                <li class="flex items-center text-neutral-600">
+                  <svg class="w-4 h-4 mr-2 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  {detalle}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {producto.talles && (
+            <div>
+              <h3 class="text-lg font-medium text-gray-900 mb-3">Talle</h3>
+              <div class="flex flex-wrap gap-2">
+                {producto.talles.map((talle) => (
+                  <button 
+                    class="size-selector px-4 py-2 border border-neutral-300 rounded-md text-sm font-medium text-neutral-700 hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 hover:scale-105 hover:shadow-md"
+                    data-talle={talle}
+                  >
+                    {talle}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          {producto.colores && (
+            <div>
+              <h3 class="text-lg font-medium text-gray-900 mb-3">Color</h3>
+              <div class="flex flex-wrap gap-2">
+                {producto.colores.map((color) => (
+                  <button 
+                    class="color-selector px-4 py-2 border border-neutral-300 rounded-md text-sm font-medium text-neutral-700 hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 hover:scale-105 hover:shadow-md"
+                    data-color={color}
+                  >
+                    {color}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          <div class="pt-6 flex flex-col sm:flex-row gap-3">
+            <a href="/" class="w-full sm:w-auto">
+              <button type="button" class="w-full sm:w-auto bg-neutral-100 hover:bg-neutral-200 text-primary-700 font-semibold py-3 px-6 rounded-xl flex items-center justify-center gap-2 border border-neutral-300 transition-all duration-200 hover:scale-105 hover:shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                Seguir comprando
+              </button>
+            </a>
+            <button 
+              id="add-to-cart-btn"
+              data-product-id={producto.id}
+              data-product-title={producto.titulo}
+              data-product-price={producto.precio}
+              data-product-image={producto.imagen}
+              class="w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center space-x-2 transform hover:-translate-y-1"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+              </svg>
+              <span>Agregar al Carrito</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </PageTransition>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-20 right-6 bg-gradient-to-r from-accent-500 to-accent-600 text-white px-6 py-3 rounded-xl shadow-lg transform translate-x-full transition-transform duration-300 z-50 cursor-pointer hidden select-none flex items-center gap-2">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span class="font-semibold">Producto agregado</span>
+    <span class="hidden sm:inline">- Click para ver el carrito</span>
+  </div>
+</Layout>
+
+<script>
+  // Size and Color Selection
+  document.addEventListener('DOMContentLoaded', function() {
+    const sizeSelectors = document.querySelectorAll('.size-selector');
+    const colorSelectors = document.querySelectorAll('.color-selector');
+    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    const toast = document.getElementById('toast');
+
+    let selectedSize = null;
+    let selectedColor = null;
+    let toastTimeout = null;
+
+    // Size selection
+    sizeSelectors.forEach(selector => {
+      selector.addEventListener('click', function() {
+        sizeSelectors.forEach(s => s.classList.remove('bg-primary-600', 'text-white'));
+        this.classList.add('bg-primary-600', 'text-white');
+        selectedSize = this.dataset.talle;
+      });
+    });
+
+    // Color selection
+    colorSelectors.forEach(selector => {
+      selector.addEventListener('click', function() {
+        colorSelectors.forEach(s => s.classList.remove('bg-primary-600', 'text-white'));
+        this.classList.add('bg-primary-600', 'text-white');
+        selectedColor = this.dataset.color;
+      });
+    });
+
+    // Toast click: ir al carrito
+    toast.addEventListener('click', function() {
+      window.location.href = '/carrito';
+    });
+
+    // Add to cart functionality
+    addToCartBtn.addEventListener('click', function() {
+      const productId = this.dataset.productId;
+      const productTitle = this.dataset.productTitle;
+      const productPrice = parseInt(this.dataset.productPrice);
+      const productImage = this.dataset.productImage;
+
+      // Get existing cart
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Check if product already exists in cart
+      const existingProductIndex = cart.findIndex(item => item.id === productId);
+
+      if (existingProductIndex !== -1) {
+        // Update quantity
+        cart[existingProductIndex].quantity += 1;
+      } else {
+        // Add new product
+        cart.push({
+          id: productId,
+          title: productTitle,
+          price: productPrice,
+          image: productImage,
+          quantity: 1,
+          size: selectedSize,
+          color: selectedColor
+        });
+      }
+
+      // Save to localStorage
+      localStorage.setItem('cart', JSON.stringify(cart));
+      window.dispatchEvent(new Event('cart-updated'));
+
+      // Mostrar el toast con animación y click
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.remove('translate-x-full'), 10);
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('translate-x-full');
+        setTimeout(() => toast.classList.add('hidden'), 300);
+      }, 2000);
+
+      // Update cart count in navigation
+      updateCartCount();
+    });
+
+    // Toast click to go to cart
+    toast.addEventListener('click', function() {
+      window.location.href = '/carrito';
+    });
+
+    // Update cart count function
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+      
+      const cartCount = document.querySelector('.cart-count');
+      if (cartCount) {
+        cartCount.textContent = totalItems;
+        cartCount.classList.remove('hidden');
+      }
+    }
+
+    // Initialize cart count
+    updateCartCount();
+  });
+</script> 
