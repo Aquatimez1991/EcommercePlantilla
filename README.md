@@ -1,144 +1,71 @@
-# CarpiShop - Ecommerce con Astro + Tailwind
+# Sumaq Style
 
-Este proyecto es una migración de un ecommerce simple de HTML/CSS/JavaScript vanilla a **Astro con Tailwind CSS**, manteniendo toda la funcionalidad original pero con las ventajas del framework moderno y un diseño mejorado.
+¡Bienvenido a **Sumaq Style**! 🦙
 
-## 🚀 Características
+Tienda ecommerce peruana de ropa moderna, construida con [Astro](https://astro.build/), TailwindCSS y tecnologías modernas. Pensada para brindar la mejor experiencia de compra online en Perú.
 
-- **Migración completa a Astro**: Proyecto modernizado con componentes reutilizables
-- **Diseño con Tailwind CSS**: Interfaz moderna y responsive con utilidades CSS
-- **Funcionalidad completa del carrito**: Agregar, eliminar y vaciar productos
-- **Filtrado por categorías**: Abrigos, Camisetas, Pantalones
-- **Persistencia de datos**: Carrito guardado en localStorage
-- **Diseño responsive**: Adaptado para móviles y desktop
-- **Notificaciones**: Toast notifications al agregar productos
-- **Animaciones suaves**: Transiciones y efectos hover mejorados
+---
 
-## 📁 Estructura del Proyecto
+## 🚀 Características principales
+- Catálogo de productos con filtros avanzados (categoría, precio, stock, talla, color, estado, orden).
+- Carrito de compras mejorado con edición de cantidades, validación de stock y resumen profesional.
+- Sistema de reseñas y calificaciones por producto (localStorage, UX moderna).
+- Animaciones suaves y transiciones entre páginas y categorías.
+- Responsive y accesible.
+- Páginas informativas: Sobre Nosotros, Contacto, FAQ, Términos y Condiciones, Política de Privacidad.
+- Branding y datos adaptados a Perú (moneda S/, métodos de pago, contacto, etc).
 
-```
-src/
-├── components/          # Componentes reutilizables
-│   ├── Navigation.astro # Navegación principal
-│   └── ProductCard.astro # Tarjeta de producto
-├── data/
-│   └── productos.ts     # Datos de productos con TypeScript
-├── layouts/
-│   └── Layout.astro     # Layout principal
-└── pages/
-    ├── index.astro      # Página principal
-    └── carrito.astro    # Página del carrito
+---
 
-tailwind.config.mjs      # Configuración de Tailwind CSS
+## 🛠️ Tecnologías usadas
+- [Astro](https://astro.build/) (framework principal)
+- [TailwindCSS](https://tailwindcss.com/) (estilos)
+- [TypeScript](https://www.typescriptlang.org/) (tipado)
+- [Toastify](https://apvarun.github.io/toastify-js/) (notificaciones)
+- [localStorage] (persistencia carrito y reseñas)
 
-public/
-└── assets/              # Assets estáticos
-    ├── images/          # Imágenes de productos
-    │   ├── abrigos/
-    │   ├── camisetas/
-    │   └── pantalones/
-    └── styles/          # Estilos adicionales (futuro)
-```
+---
 
-## 🛠️ Tecnologías Utilizadas
+## ⚡ Instalación y uso local
 
-- **Astro**: Framework principal
-- **Tailwind CSS**: Framework de utilidades CSS
-- **TypeScript**: Tipado de datos
-- **Bootstrap Icons**: Iconografía
-- **Toastify**: Notificaciones
-- **SweetAlert2**: Alertas
-
-## 🚀 Instalación y Uso
-
-1. **Instalar dependencias**:
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/tuusuario/sumaq-style.git
+   cd sumaq-style
+   ```
+2. **Instala dependencias:**
    ```bash
    npm install
    ```
-
-2. **Ejecutar en desarrollo**:
+3. **Inicia el servidor de desarrollo:**
    ```bash
    npm run dev
    ```
+4. **Abre en tu navegador:**
+   [http://localhost:4321](http://localhost:4321)
 
-3. **Construir para producción**:
-   ```bash
-   npm run build
-   ```
+---
 
-4. **Previsualizar producción**:
-   ```bash
-   npm run preview
-   ```
+## 📝 Personalización
+- Edita los productos en `src/data/productos.ts`.
+- Cambia datos de contacto y branding en las páginas de `src/pages/`.
+- Modifica estilos globales en `public/assets/styles/variables.css` y el tema en `tailwind.config.mjs`.
 
-## 🔄 Migración Realizada
+---
 
-### Cambios Principales:
+## 📦 Build para producción
+```bash
+npm run build
+```
+Los archivos listos para producción estarán en `/dist`.
 
-1. **Estructura de archivos**: Reorganizada siguiendo las convenciones de Astro
-2. **Componentes**: HTML convertido a componentes `.astro` reutilizables
-3. **Datos**: JSON convertido a TypeScript con interfaces tipadas
-4. **Rutas**: Sistema de rutas basado en archivos de Astro
-5. **Scripts**: JavaScript integrado en los componentes con `<script>`
-6. **Assets**: Imágenes movidas a `/public` para servir estáticamente
-7. **CSS → Tailwind**: Migración completa de CSS personalizado a utilidades de Tailwind
-8. **Diseño mejorado**: Interfaz más moderna con animaciones y transiciones
+---
 
-### Funcionalidades Mantenidas:
+## 📧 Contacto de ejemplo
+- **Email:** contacto@sumaqstyle.pe
+- **WhatsApp:** +51 987 654 321
+- **Dirección:** Av. Larco 1234, Miraflores, Lima, Perú
 
-- ✅ Filtrado por categorías
-- ✅ Agregar productos al carrito
-- ✅ Eliminar productos del carrito
-- ✅ Vaciar carrito completo
-- ✅ Cálculo de totales
-- ✅ Persistencia en localStorage
-- ✅ Notificaciones toast
-- ✅ Diseño responsive
-- ✅ Menú móvil
+---
 
-## 🎨 Componentes
-
-### Navigation.astro
-Componente de navegación que se adapta según la página actual (productos o carrito).
-
-### ProductCard.astro
-Tarjeta de producto reutilizable con botón de agregar al carrito.
-
-### Layout.astro
-Layout principal que incluye los meta tags, CSS y scripts necesarios.
-
-## 📱 Páginas
-
-### `/` - Página Principal
-- Lista todos los productos
-- Filtrado por categorías
-- Funcionalidad de agregar al carrito
-
-### `/carrito` - Carrito de Compras
-- Muestra productos en el carrito
-- Permite eliminar productos
-- Cálculo de totales
-- Botón de compra
-
-## 🔧 Configuración
-
-El proyecto está configurado en `astro.config.mjs` con:
-- Site URL configurada
-- Título y descripción por defecto
-
-## 📝 Notas de Desarrollo
-
-- Los scripts están integrados en los componentes para mantener la funcionalidad original
-- Se mantiene la compatibilidad con localStorage para el carrito
-- Las imágenes se sirven desde `/public` para mejor rendimiento
-- TypeScript proporciona tipado seguro para los datos de productos
-- Tailwind CSS proporciona un sistema de diseño consistente y responsive
-- Las animaciones y transiciones mejoran la experiencia de usuario
-
-## 🚀 Próximas Mejoras
-
-- [ ] Agregar más categorías de productos
-- [ ] Implementar búsqueda de productos
-- [ ] Agregar sistema de usuarios
-- [ ] Integrar pasarela de pagos
-- [ ] Optimizar imágenes con Astro Image
-- [ ] Agregar tests unitarios 
+## �� Sumaq Style © 2025 
