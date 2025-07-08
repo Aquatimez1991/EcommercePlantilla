@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import ProductCard from '../components/ProductCard.astro';
+import AdvancedFilters from '../components/AdvancedFilters.astro';
+import MobileFilters from '../components/MobileFilters.astro';
 import PageTransition from '../components/PageTransition.astro';
 import { productos } from '../data/productos';
 
@@ -14,21 +16,33 @@ const productosFiltrados = categoria && categoria !== 'todos'
 const titulo = categoria && categoria !== 'todos'
   ? productos.find(p => p.categoria.id === categoria)?.categoria.nombre || 'Todos los productos'
   : 'Todos los productos';
+
+// Datos para filtros
+const categorias = [
+  { id: 'abrigos', nombre: 'Abrigos' },
+  { id: 'camisetas', nombre: 'Camisetas' },
+  { id: 'pantalones', nombre: 'Pantalones' }
+];
+
+const precios = {
+  min: 0,
+  max: Math.max(...productos.map(p => p.precio))
+};
 ---
 
-<Layout title="CarpiShop - Tu tienda de ropa online">
+<Layout title="Sumaq Style - Tu tienda de ropa online">
   <!-- Loader -->
   <div id="loader" class="fixed inset-0 bg-gradient-to-br from-primary-600 to-primary-700 z-50 flex items-center justify-center">
     <div class="text-center">
       <div class="relative">
         <!-- Logo animado -->
-        <h1 class="text-white-custom text-4xl font-bold mb-8 animate-pulse">CarpiShop</h1>
+        <h1 class="text-white-custom text-4xl font-bold mb-8 animate-pulse">Sumaq Style</h1>
         
         <!-- Spinner -->
         <div class="w-16 h-16 border-4 border-white-custom border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
         
         <!-- Texto de carga -->
-        <p class="text-white-custom text-lg animate-pulse">Bienvenido a CarpiShop</p>
+        <p class="text-white-custom text-lg animate-pulse">Bienvenido a Sumaq Style</p>
         
         <!-- Puntos animados -->
         <div class="flex justify-center mt-4 space-x-1">
@@ -41,18 +55,53 @@ const titulo = categoria && categoria !== 'todos'
   </div>
 
   <!-- Contenido principal -->
-  <div id="contenido-principal" class="grid grid-cols-1 lg:grid-cols-5 bg-gradient-to-br from-primary-600 to-primary-700 min-h-screen hidden">
+  <div id="contenido-principal" class="grid grid-cols-1 lg:grid-cols-5 bg-gradient-to-br from-primary-600 to-primary-700 min-h-screen hidden" data-categoria={categoria}>
     <Navigation currentPage="productos" />
-    <main class="bg-white-custom m-4 lg:m-8 lg:ml-0 rounded-2xl p-8 lg:p-12 col-span-1 lg:col-span-4">
+    <main class="bg-white-custom m-4 lg:m-8 lg:ml-0 rounded-2xl p-8 lg:p-12 col-span-1 lg:col-span-4 relative overflow-x-hidden">
       <PageTransition>
-        <h2 class="text-primary-700 text-3xl font-semibold mb-8" id="titulo-principal">{titulo}</h2>
-        <div id="contenedor-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {productosFiltrados.map(producto => (
-            <div class="product-card">
-              <ProductCard producto={producto} />
-            </div>
-          ))}
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
+          <h2 class="text-primary-700 text-3xl font-semibold" id="titulo-principal">{titulo}</h2>
+          <div class="flex items-center gap-4">
+            <span id="contador-productos" class="text-sm text-gray-600">
+              {productosFiltrados.length} producto{productosFiltrados.length !== 1 ? 's' : ''}
+            </span>
+            <input 
+              id="buscador-productos"
+              type="search"
+              class="w-full sm:w-80 px-4 py-2 rounded-xl border border-primary-200 focus:ring-2 focus:ring-primary-400 focus:outline-none text-base shadow-sm transition-all duration-200"
+              placeholder={`Buscar en ${titulo.toLowerCase()}...`}
+              autocomplete="off"
+            />
+          </div>
         </div>
+
+        <!-- Botón flotante para abrir/cerrar filtros (solo desktop, ahora debajo del título y buscador) -->
+        <div class="hidden lg:block w-full mb-4">
+          <button id="toggle-sidebar-filtros" class="flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 font-semibold rounded-full shadow-md transition hover:bg-primary-100 border border-primary-100 ml-0" type="button">
+            <i class="bi bi-funnel text-lg"></i>
+            <span id="toggle-sidebar-filtros-text">Filtros</span>
+          </button>
+        </div>
+
+        <div class="flex w-full transition-all duration-300 ease-in-out">
+          <!-- Sidebar de filtros colapsable -->
+          <aside id="sidebar-filtros" class="hidden lg:block bg-white rounded-xl border border-gray-200 shadow-md mr-8 transition-all duration-300 ease-in-out w-80 min-w-[18rem] max-w-xs overflow-hidden">
+            <AdvancedFilters categorias={categorias} precios={precios} />
+          </aside>
+          <!-- Productos -->
+          <div id="contenedor-productos-wrapper" class="flex-1 transition-all duration-300 ease-in-out">
+            <div id="contenedor-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+              {productosFiltrados.map(producto => (
+                <div class="product-card">
+                  <ProductCard producto={producto} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Filtros móviles -->
+        <MobileFilters categorias={categorias} precios={precios} />
       </PageTransition>
     </main>
   </div>
@@ -90,6 +139,53 @@ const titulo = categoria && categoria !== 'todos'
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+
+    #toggle-sidebar-filtros {
+      box-shadow: 0 2px 12px 0 rgba(75, 51, 168, 0.08);
+    }
+    #sidebar-filtros {
+      width: 20rem;
+      min-width: 18rem;
+      max-width: 22rem;
+      opacity: 1;
+      transform: translateX(0);
+      transition: all 0.3s cubic-bezier(.4,2,.3,1);
+    }
+    #sidebar-filtros.closed {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-120%);
+      width: 0;
+      min-width: 0;
+      max-width: 0;
+      border: none;
+      margin-right: 0;
+    }
+    #contenedor-productos-wrapper {
+      transition: all 0.3s cubic-bezier(.4,2,.3,1);
+    }
+    #contenedor-productos-wrapper.full {
+      margin-left: 0 !important;
+      width: 100% !important;
+    }
+    @media (min-width: 1024px) {
+      #sidebar-filtros:not(.closed) + #contenedor-productos-wrapper {
+        margin-left: 0;
+      }
+      #sidebar-filtros.closed + #contenedor-productos-wrapper {
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+    }
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    .fade-in {
+      opacity: 1;
+      transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
   </style>
 
   <script>
@@ -104,6 +200,7 @@ const titulo = categoria && categoria !== 'todos'
     const botonesCategorias = document.querySelectorAll(".boton-categoria");
     const tituloPrincipal = document.querySelector("#titulo-principal");
     const numerito = document.querySelector("#numerito");
+    const buscador = document.getElementById('buscador-productos');
 
     // Función para ocultar el loader
     function ocultarLoader() {
@@ -126,39 +223,8 @@ const titulo = categoria && categoria !== 'todos'
 
     // Función para verificar si las imágenes están cargadas
     function verificarCargaImagenes() {
-      const imagenes = document.querySelectorAll('img');
-      let imagenesCargadas = 0;
-      const totalImagenes = imagenes.length;
-      
-      if (totalImagenes === 0) {
-        ocultarLoader();
-        return;
-      }
-      
-      imagenes.forEach(img => {
-        if (img.complete) {
-          imagenesCargadas++;
-        } else {
-          img.addEventListener('load', () => {
-            imagenesCargadas++;
-            if (imagenesCargadas === totalImagenes) {
-              ocultarLoader();
-            }
-          });
-          
-          img.addEventListener('error', () => {
-            imagenesCargadas++;
-            if (imagenesCargadas === totalImagenes) {
-              ocultarLoader();
-            }
-          });
-        }
-      });
-      
-      // Si todas las imágenes ya están cargadas
-      if (imagenesCargadas === totalImagenes) {
-        ocultarLoader();
-      }
+      // Ocultar el loader inmediatamente
+      ocultarLoader();
     }
 
     // Actualizar numerito del carrito
@@ -167,34 +233,58 @@ const titulo = categoria && categoria !== 'todos'
       if (numerito) numerito.innerText = nuevoNumerito;
     }
 
-    // Cargar productos por categoría
+    // Cargar productos por categoría con animación
     function cargarProductos(productosElegidos) {
       if (!contenedorProductos) return;
-      
-      contenedorProductos.innerHTML = "";
-      
-      productosElegidos.forEach(producto => {
-        const div = document.createElement("div");
-        div.classList.add("relative", "group");
-        div.innerHTML = `
-          <a href="/productos/${producto.id}" class="block">
-            <img class="w-full rounded-xl transition-transform duration-300 group-hover:scale-105 cursor-pointer" src="${producto.imagen}" alt="${producto.titulo}">
-          </a>
-          <div class="bg-gradient-to-r from-primary-600 to-primary-700 text-white-custom p-3 rounded-xl -mt-8 relative z-10 flex flex-col gap-2 shadow-lg">
-            <h3 class="text-base font-medium">${producto.titulo}</h3>
-            <p class="text-sm font-semibold">$${producto.precio}</p>
-            <button 
-              class="border-2 border-white-custom bg-white-custom text-primary-600 py-1 px-3 uppercase rounded-2xl cursor-pointer font-semibold text-sm transition-all duration-200 hover:bg-primary-600 hover:text-white-custom hover:scale-105" 
-              data-producto-id="${producto.id}"
-            >
-              Agregar
-            </button>
-          </div>
-        `;
-        contenedorProductos.append(div);
-      });
-      
-      actualizarBotonesAgregar();
+      // Animación de salida
+      contenedorProductos.classList.remove('fade-in');
+      contenedorProductos.classList.add('fade-out');
+      setTimeout(() => {
+        contenedorProductos.innerHTML = "";
+        productosElegidos.forEach(producto => {
+          const div = document.createElement("div");
+          div.classList.add("product-card");
+          
+          // Determinar el estado del botón basado en el stock
+          const botonDisabled = producto.stock === 0;
+          const botonTexto = producto.stock === 0 ? 'Agotado' : 'Agregar';
+          const botonClases = producto.stock === 0 
+            ? 'border-2 border-gray-400 bg-gray-400 text-white py-1 px-3 uppercase rounded-2xl cursor-not-allowed font-semibold text-sm' 
+            : 'border-2 border-white-custom bg-white-custom text-primary-600 py-1 px-3 uppercase rounded-2xl cursor-pointer font-semibold text-sm transition-all duration-200 hover:bg-primary-600 hover:text-white-custom hover:scale-105';
+          
+          div.innerHTML = `
+            <a href="/productos/${producto.id}" class="block">
+              <img class="w-full rounded-xl transition-transform duration-300 group-hover:scale-105 cursor-pointer" src="${producto.imagen.src}" alt="${producto.titulo}" loading="lazy">
+            </a>
+            <div class="bg-gradient-to-r from-primary-600 to-primary-700 text-white-custom p-3 rounded-xl -mt-8 relative z-10 flex flex-col gap-2 shadow-lg">
+              <h3 class="text-base font-medium">${producto.titulo}</h3>
+              <p class="text-sm font-semibold">S/${producto.precio}</p>
+              ${producto.stock !== undefined ? `
+                <div class="flex items-center justify-between text-xs">
+                  <span>Stock:</span>
+                  ${producto.stock === 0 ? '<span class="text-red-300">Agotado</span>' : 
+                    producto.stock <= 5 ? `<span class="text-orange-300">¡Solo ${producto.stock}!</span>` : 
+                    `<span class="text-green-300">${producto.stock} disponibles</span>`}
+                </div>
+              ` : ''}
+              <button 
+                class="${botonClases}" 
+                data-producto-id="${producto.id}"
+                ${botonDisabled ? 'disabled' : ''}
+              >
+                ${botonTexto}
+              </button>
+            </div>
+          `;
+          contenedorProductos.append(div);
+        });
+        actualizarBotonesAgregar();
+        // Animación de entrada
+        setTimeout(() => {
+          contenedorProductos.classList.remove('fade-out');
+          contenedorProductos.classList.add('fade-in');
+        }, 20);
+      }, 350);
     }
 
     // Agregar al carrito
@@ -206,6 +296,51 @@ const titulo = categoria && categoria !== 'todos'
       console.log('Producto encontrado:', productoAgregado);
 
       if (productoAgregado) {
+        // Verificar stock
+        if (productoAgregado.stock === 0) {
+          Toastify({
+            text: "❌ Producto agotado",
+            duration: 3000,
+            close: true,
+            gravity: "bottom",
+            position: "right",
+            style: {
+              background: "linear-gradient(to right, #ef4444, #dc2626)",
+              borderRadius: "2rem",
+              textTransform: "uppercase",
+              fontSize: ".75rem"
+            },
+            offset: {
+              x: '1.5rem',
+              y: '1.5rem'
+            }
+          }).showToast();
+          return;
+        }
+
+        // Verificar si ya está en el carrito y no excede el stock
+        const productoEnCarrito = productosEnCarrito.find(producto => producto.id === idBoton);
+        if (productoEnCarrito && productoEnCarrito.quantity >= productoAgregado.stock) {
+          Toastify({
+            text: `⚠️ Solo ${productoAgregado.stock} unidades disponibles`,
+            duration: 3000,
+            close: true,
+            gravity: "bottom",
+            position: "right",
+            style: {
+              background: "linear-gradient(to right, #f59e0b, #d97706)",
+              borderRadius: "2rem",
+              textTransform: "uppercase",
+              fontSize: ".75rem"
+            },
+            offset: {
+              x: '1.5rem',
+              y: '1.5rem'
+            }
+          }).showToast();
+          return;
+        }
+
         Toastify({
           text: "🛒 Producto agregado - Click para ver carrito",
           duration: 4000,
@@ -238,8 +373,9 @@ const titulo = categoria && categoria !== 'todos'
             id: productoAgregado.id,
             title: productoAgregado.titulo,
             price: productoAgregado.precio,
-            image: productoAgregado.imagen,
-            quantity: 1
+            image: productoAgregado.imagen.src,
+            quantity: 1,
+            stock: productoAgregado.stock
           });
         }
 
@@ -265,9 +401,19 @@ const titulo = categoria && categoria !== 'todos'
     function actualizarBotonesAgregar() {
       const botonesAgregar = document.querySelectorAll("[data-producto-id]");
       botonesAgregar.forEach(boton => {
-        boton.addEventListener("click", agregarAlCarrito);
+        // Remover event listeners anteriores
+        boton.removeEventListener("click", agregarAlCarrito);
+        
+        // Solo agregar event listener si el botón no está deshabilitado
+        if (!boton.disabled) {
+          boton.addEventListener("click", agregarAlCarrito);
+        }
       });
     }
+
+    // Obtener la categoría seleccionada desde el atributo data-categoria
+    const categoriaSeleccionadaAttr = document.getElementById('contenido-principal')?.getAttribute('data-categoria') || 'todos';
+    let categoriaSeleccionada = categoriaSeleccionadaAttr;
 
     // Event listeners para categorías
     botonesCategorias.forEach(boton => {
@@ -285,6 +431,7 @@ const titulo = categoria && categoria !== 'todos'
         e.currentTarget.classList.remove("text-white-custom");
 
         const categoriaId = e.currentTarget.id;
+        categoriaSeleccionada = categoriaId;
         if (categoriaId !== "todos") {
           const productoCategoria = productos.find(producto => producto.categoria.id === categoriaId);
           if (tituloPrincipal && productoCategoria) {
@@ -304,12 +451,47 @@ const titulo = categoria && categoria !== 'todos'
     console.log('Productos cargados:', productos.length);
     console.log('Botones de categorías encontrados:', botonesCategorias.length);
     
-    // Inicializar con verificación de carga de imágenes
-    setTimeout(() => {
-      actualizarNumerito();
-      actualizarBotonesAgregar();
-      verificarCargaImagenes();
-      console.log('Página inicializada correctamente');
-    }, 800); // Mínimo 0.8 segundos de loader
+    // Inicializar inmediatamente
+    actualizarNumerito();
+    actualizarBotonesAgregar();
+    verificarCargaImagenes();
+    console.log('Página inicializada correctamente');
+
+    if (buscador) {
+      buscador.addEventListener('input', function() {
+        const texto = this.value.trim().toLowerCase();
+        const productosFiltrados = (categoriaSeleccionada && categoriaSeleccionada !== 'todos' ? productos.filter(p => p.categoria.id === categoriaSeleccionada) : productos)
+          .filter(p =>
+            p.titulo.toLowerCase().includes(texto) ||
+            p.descripcion?.toLowerCase().includes(texto) ||
+            p.categoria?.nombre?.toLowerCase().includes(texto)
+          );
+        cargarProductos(productosFiltrados);
+      });
+    }
+
+    // Sidebar toggle logic
+    const btnToggleSidebar = document.getElementById('toggle-sidebar-filtros');
+    const sidebar = document.getElementById('sidebar-filtros');
+    const wrapper = document.getElementById('contenedor-productos-wrapper');
+    const toggleText = document.getElementById('toggle-sidebar-filtros-text');
+    let sidebarOpen = true;
+    function updateSidebarState(open) {
+      if (open) {
+        sidebar.classList.remove('closed');
+        wrapper.classList.remove('full');
+        toggleText.textContent = 'Ocultar';
+      } else {
+        sidebar.classList.add('closed');
+        wrapper.classList.add('full');
+        toggleText.textContent = 'Filtros';
+      }
+    }
+    btnToggleSidebar?.addEventListener('click', () => {
+      sidebarOpen = !sidebarOpen;
+      updateSidebarState(sidebarOpen);
+    });
+    // Inicializar estado
+    updateSidebarState(true);
   </script>
 </Layout> 

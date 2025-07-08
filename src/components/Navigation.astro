@@ -9,7 +9,7 @@ const { currentPage = "productos" } = Astro.props;
 <header class="lg:hidden bg-gradient-to-r from-primary-600 to-primary-700 text-white-custom p-4 flex justify-between items-center">
   <a href="/" class="flex items-center gap-2 text-2xl font-extrabold tracking-tight hover:scale-105 hover:text-accent-400 transition-all duration-200">
     <i class="bi bi-shop text-3xl"></i>
-    <span>CarpiShop</span>
+    <span>Sumaq Style</span>
   </a>
   <button class="text-2xl" id="open-menu">
     <i class="bi bi-list"></i>
@@ -24,7 +24,7 @@ const { currentPage = "productos" } = Astro.props;
   <header>
     <a href="/" class="flex items-center gap-2 text-2xl font-extrabold tracking-tight hover:scale-105 hover:text-accent-400 transition-all duration-200 mb-8">
       <i class="bi bi-shop text-3xl"></i>
-      <span>CarpiShop</span>
+      <span>Sumaq Style</span>
     </a>
   </header>
   
@@ -63,6 +63,21 @@ const { currentPage = "productos" } = Astro.props;
               <i class="bi bi-person-badge"></i> Backstage
             </a>
           </li>
+          <li class="mt-8 border-t border-primary-500 pt-4">
+            <a class="w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md" href="/sobre-nosotros">
+              <i class="bi bi-info-circle"></i> Sobre Nosotros
+            </a>
+          </li>
+          <li>
+            <a class="w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md" href="/contacto">
+              <i class="bi bi-envelope"></i> Contacto
+            </a>
+          </li>
+          <li>
+            <a class="w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md" href="/preguntas-frecuentes">
+              <i class="bi bi-question-circle"></i> FAQ
+            </a>
+          </li>
         </>
       ) : currentPage === "carrito" ? (
         <>
@@ -85,13 +100,28 @@ const { currentPage = "productos" } = Astro.props;
               Carrito
             </a>
           </li>
+          <li class="mt-8 border-t border-primary-500 pt-4">
+            <a class="w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md" href="/sobre-nosotros">
+              <i class="bi bi-info-circle"></i> Sobre Nosotros
+            </a>
+          </li>
+          <li>
+            <a class="w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md" href="/contacto">
+              <i class="bi bi-envelope"></i> Contacto
+            </a>
+          </li>
+          <li>
+            <a class="w-full text-left text-white-custom cursor-pointer flex items-center gap-4 font-semibold p-4 text-sm hover:bg-white-custom hover:text-primary-600 transition-all duration-200 hover:shadow-md" href="/preguntas-frecuentes">
+              <i class="bi bi-question-circle"></i> FAQ
+            </a>
+          </li>
         </>
       )}
     </ul>
   </nav>
   
   <footer>
-    <p class="text-primary-300 text-sm">© 2022 Carpi Coder</p>
+    <p class="text-primary-300 text-sm">© 2025 Sumaq Style</p>
   </footer>
 </aside>
 

@@ -1,0 +1,189 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import PageTransition from '../components/PageTransition.astro';
+---
+
+<Layout title="Sobre Nosotros - CarpiShop">
+  <div class="grid grid-cols-1 lg:grid-cols-5 bg-gradient-to-br from-primary-600 to-primary-700 min-h-screen">
+    <Navigation currentPage="sobre-nosotros" />
+    <main class="bg-white-custom m-4 lg:m-8 lg:ml-0 rounded-2xl p-8 lg:p-12 col-span-1 lg:col-span-4">
+      <PageTransition>
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-3xl font-bold text-primary-700 mb-4">Sobre Sumaq Style</h1>
+<p class="mb-4">Sumaq Style es una tienda peruana de moda fundada en Lima en 2025. Nos especializamos en ofrecer ropa moderna y de calidad para todo el Perú, con envíos a nivel nacional y atención personalizada.</p>
+<ul class="mb-4">
+  <li><strong>Dirección:</strong> Av. Larco 1234, Miraflores, Lima, Perú</li>
+  <li><strong>Teléfono:</strong> +51 1 234 5678</li>
+  <li><strong>Email:</strong> contacto@sumaqstyle.pe</li>
+  <li><strong>RUC:</strong> 20123456789</li>
+</ul>
+<p>¡Gracias por confiar en Sumaq Style, tu tienda de moda peruana!</p>
+          
+          <!-- Historia -->
+          <section class="mb-12">
+            <h2 class="text-3xl font-semibold text-primary-700 mb-6">Nuestra Historia</h2>
+            <div class="bg-gradient-to-r from-primary-50 to-white p-6 rounded-xl border border-primary-100">
+              <p class="text-gray-700 leading-relaxed mb-4">
+                CarpiShop nació en 2020 con la visión de democratizar la moda de calidad en Argentina. 
+                Fundada por un grupo de emprendedores apasionados por la moda y la tecnología, 
+                nuestra misión es ofrecer ropa de alta calidad a precios accesibles.
+              </p>
+              <p class="text-gray-700 leading-relaxed mb-4">
+                Comenzamos como una pequeña tienda local en Buenos Aires, y gracias al apoyo de 
+                nuestros clientes, hemos crecido hasta convertirnos en una de las tiendas de ropa 
+                online más confiables del país.
+              </p>
+              <p class="text-gray-700 leading-relaxed">
+                Hoy, atendemos a miles de clientes en todo el país, ofreciendo una amplia gama de 
+                productos que combinan estilo, calidad y comodidad.
+              </p>
+            </div>
+          </section>
+
+          <!-- Misión y Visión -->
+          <section class="mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="bg-gradient-to-br from-primary-600 to-primary-700 text-white p-6 rounded-xl">
+                <h3 class="text-2xl font-semibold mb-4">Nuestra Misión</h3>
+                <p class="leading-relaxed">
+                  Ofrecer ropa de alta calidad a precios accesibles, proporcionando una experiencia 
+                  de compra excepcional y satisfaciendo las necesidades de moda de nuestros clientes.
+                </p>
+              </div>
+              <div class="bg-gradient-to-br from-accent-500 to-accent-600 text-white p-6 rounded-xl">
+                <h3 class="text-2xl font-semibold mb-4">Nuestra Visión</h3>
+                <p class="leading-relaxed">
+                  Ser la tienda de ropa online líder en Argentina, reconocida por la calidad de 
+                  nuestros productos, el excelente servicio al cliente y la innovación constante.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Valores -->
+          <section class="mb-12">
+            <h2 class="text-3xl font-semibold text-primary-700 mb-6">Nuestros Valores</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="text-center p-6 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-primary-700 mb-2">Calidad</h3>
+                <p class="text-gray-600">Nos comprometemos a ofrecer solo productos de la más alta calidad.</p>
+              </div>
+
+              <div class="text-center p-6 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-primary-700 mb-2">Confianza</h3>
+                <p class="text-gray-600">Construimos relaciones duraderas basadas en la confianza mutua.</p>
+              </div>
+
+              <div class="text-center p-6 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-primary-700 mb-2">Innovación</h3>
+                <p class="text-gray-600">Buscamos constantemente nuevas formas de mejorar nuestro servicio.</p>
+              </div>
+
+              <div class="text-center p-6 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-primary-700 mb-2">Comunidad</h3>
+                <p class="text-gray-600">Valoramos y apoyamos a nuestra comunidad de clientes.</p>
+              </div>
+
+              <div class="text-center p-6 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"></path>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-primary-700 mb-2">Sostenibilidad</h3>
+                <p class="text-gray-600">Nos comprometemos con prácticas comerciales sostenibles.</p>
+              </div>
+
+              <div class="text-center p-6 bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"></path>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-primary-700 mb-2">Excelencia</h3>
+                <p class="text-gray-600">Buscamos la excelencia en cada aspecto de nuestro negocio.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Equipo -->
+          <section class="mb-12">
+            <h2 class="text-3xl font-semibold text-primary-700 mb-6">Nuestro Equipo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="text-center">
+                <div class="w-32 h-32 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span class="text-white text-3xl font-bold">MC</span>
+                </div>
+                <h3 class="text-xl font-semibold text-primary-700 mb-1">María Carpi</h3>
+                <p class="text-gray-600 mb-2">CEO & Fundadora</p>
+                <p class="text-sm text-gray-500">Apasionada por la moda y el emprendimiento</p>
+              </div>
+
+              <div class="text-center">
+                <div class="w-32 h-32 bg-gradient-to-br from-accent-400 to-accent-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span class="text-white text-3xl font-bold">JD</span>
+                </div>
+                <h3 class="text-xl font-semibold text-primary-700 mb-1">Juan Díaz</h3>
+                <p class="text-gray-600 mb-2">Director de Operaciones</p>
+                <p class="text-sm text-gray-500">Experto en logística y gestión de calidad</p>
+              </div>
+
+              <div class="text-center">
+                <div class="w-32 h-32 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span class="text-white text-3xl font-bold">AG</span>
+                </div>
+                <h3 class="text-xl font-semibold text-primary-700 mb-1">Ana García</h3>
+                <p class="text-gray-600 mb-2">Directora de Marketing</p>
+                <p class="text-sm text-gray-500">Especialista en estrategias digitales</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Estadísticas -->
+          <section class="mb-12">
+            <h2 class="text-3xl font-semibold text-primary-700 mb-6">Nuestros Números</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div class="text-center p-6 bg-gradient-to-br from-primary-600 to-primary-700 text-white rounded-xl">
+                <div class="text-3xl font-bold mb-2">10K+</div>
+                <div class="text-sm">Clientes Satisfechos</div>
+              </div>
+              <div class="text-center p-6 bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-xl">
+                <div class="text-3xl font-bold mb-2">500+</div>
+                <div class="text-sm">Productos</div>
+              </div>
+              <div class="text-center p-6 bg-gradient-to-br from-primary-600 to-primary-700 text-white rounded-xl">
+                <div class="text-3xl font-bold mb-2">3</div>
+                <div class="text-sm">Años de Experiencia</div>
+              </div>
+              <div class="text-center p-6 bg-gradient-to-br from-accent-500 to-accent-600 text-white rounded-xl">
+                <div class="text-3xl font-bold mb-2">24/7</div>
+                <div class="text-sm">Soporte</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </PageTransition>
+    </main>
+  </div>
+</Layout> 

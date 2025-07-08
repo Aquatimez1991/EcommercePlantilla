@@ -1,0 +1,231 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import PageTransition from '../components/PageTransition.astro';
+---
+
+<Layout title="Términos y Condiciones - CarpiShop">
+  <div class="grid grid-cols-1 lg:grid-cols-5 bg-gradient-to-br from-primary-600 to-primary-700 min-h-screen">
+    <Navigation currentPage="terminos-condiciones" />
+    <main class="bg-white-custom m-4 lg:m-8 lg:ml-0 rounded-2xl p-8 lg:p-12 col-span-1 lg:col-span-4">
+      <PageTransition>
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-primary-700 text-4xl font-bold mb-8 text-center">Términos y Condiciones</h1>
+          
+          <div class="prose prose-lg max-w-none">
+            <p class="text-gray-600 mb-8 text-center">
+              Última actualización: {new Date().toLocaleDateString('es-AR')}
+            </p>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">1. Aceptación de los Términos</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700">
+                  Al acceder y utilizar el sitio web de CarpiShop, aceptas estar sujeto a estos términos y condiciones. Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestros servicios.
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">2. Descripción del Servicio</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700 mb-4">
+                  CarpiShop es una tienda online que ofrece productos de ropa y accesorios. Nuestros servicios incluyen:
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Venta de productos de moda</li>
+                  <li>Procesamiento de pedidos online</li>
+                  <li>Envío a domicilio</li>
+                  <li>Atención al cliente</li>
+                  <li>Servicios de devolución y cambio</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">3. Registro y Cuenta de Usuario</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Creación de Cuenta</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+                  <li>Debes ser mayor de 18 años para crear una cuenta</li>
+                  <li>Proporcionar información veraz y actualizada</li>
+                  <li>Mantener la confidencialidad de tus credenciales</li>
+                  <li>Notificar inmediatamente cualquier uso no autorizado</li>
+                </ul>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Responsabilidades</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Eres responsable de todas las actividades en tu cuenta</li>
+                  <li>No compartir tu cuenta con terceros</li>
+                  <li>Mantener tu información de contacto actualizada</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">4. Productos y Precios</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Disponibilidad</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+                  <li>Los productos están sujetos a disponibilidad</li>
+                  <li>Nos reservamos el derecho de modificar o discontinuar productos</li>
+                  <li>Los precios pueden cambiar sin previo aviso</li>
+                </ul>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Precios</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Todos los precios están en pesos argentinos e incluyen IVA</li>
+                  <li>Los precios mostrados son válidos al momento de la compra</li>
+                  <li>Nos reservamos el derecho de corregir errores de precios</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">5. Pedidos y Pagos</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Proceso de Compra</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+                  <li>Seleccionar productos y agregarlos al carrito</li>
+                  <li>Revisar y confirmar el pedido</li>
+                  <li>Proporcionar información de envío y pago</li>
+                  <li>Recibir confirmación del pedido</li>
+                </ul>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Métodos de Pago</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Tarjetas de crédito y débito</li>
+                  <li>Transferencias bancarias</li>
+                  <li>Pago en efectivo contra entrega</li>
+                  <li>Billeteras digitales</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">6. Envíos y Entregas</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Tiempos de Entrega</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+                  <li>Buenos Aires: 1-2 días hábiles</li>
+                  <li>Interior del país: 3-5 días hábiles</li>
+                  <li>Zonas remotas: 5-7 días hábiles</li>
+                </ul>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Responsabilidades</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Proporcionar dirección de envío correcta</li>
+                  <li>Estar disponible para recibir el pedido</li>
+                  <li>Verificar el estado del producto al recibirlo</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">7. Devoluciones y Cambios</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Política de Devoluciones</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+                  <li>Plazo de 30 días desde la compra</li>
+                  <li>Producto en estado original y sin usar</li>
+                  <li>Con todas las etiquetas y embalaje original</li>
+                  <li>Contactar previamente al servicio al cliente</li>
+                </ul>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Cambios</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Cambio por talle o color disponible</li>
+                  <li>Sujeto a disponibilidad de stock</li>
+                  <li>Mismo plazo que las devoluciones</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">8. Propiedad Intelectual</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700 mb-4">
+                  Todo el contenido de este sitio web, incluyendo textos, imágenes, logos, diseños y software, está protegido por derechos de autor y otras leyes de propiedad intelectual.
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>No está permitida la reproducción sin autorización</li>
+                  <li>El uso comercial está prohibido</li>
+                  <li>Respetamos los derechos de propiedad intelectual de terceros</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">9. Limitación de Responsabilidad</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700 mb-4">
+                  CarpiShop no será responsable por:
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Daños indirectos o consecuenciales</li>
+                  <li>Pérdida de beneficios o datos</li>
+                  <li>Interrupciones del servicio</li>
+                  <li>Errores en la información del producto</li>
+                  <li>Problemas de envío fuera de nuestro control</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">10. Ley Aplicable y Jurisdicción</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700">
+                  Estos términos se rigen por las leyes de la República Argentina. Cualquier disputa será resuelta en los tribunales competentes de la Ciudad Autónoma de Buenos Aires.
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">11. Modificaciones</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700">
+                  Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en el sitio web. Te recomendamos revisar estos términos periódicamente.
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">12. Contacto</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700 mb-4">
+                  Si tienes preguntas sobre estos términos y condiciones, contáctanos:
+                </p>
+                <div class="space-y-2 text-gray-700">
+                  <p><strong>Email:</strong> legal@carpishop.com</p>
+                  <p><strong>Teléfono:</strong> +54 11 1234-5678</p>
+                  <p><strong>Dirección:</strong> Av. Corrientes 1234, Buenos Aires, Argentina</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Enlaces adicionales -->
+          <div class="mt-12 bg-gradient-to-r from-primary-50 to-white p-8 rounded-xl border border-primary-100">
+            <h2 class="text-2xl font-semibold text-primary-700 mb-4 text-center">Documentos Legales</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a href="/politica-privacidad" class="flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <i class="bi bi-shield-check text-primary-600 text-xl"></i>
+                <div>
+                  <h3 class="font-semibold text-gray-900">Política de Privacidad</h3>
+                  <p class="text-sm text-gray-600">Cómo protegemos tus datos</p>
+                </div>
+              </a>
+              <a href="/preguntas-frecuentes" class="flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <i class="bi bi-question-circle text-primary-600 text-xl"></i>
+                <div>
+                  <h3 class="font-semibold text-gray-900">Preguntas Frecuentes</h3>
+                  <p class="text-sm text-gray-600">Resuelve tus dudas</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </PageTransition>
+    </main>
+  </div>
+</Layout> 

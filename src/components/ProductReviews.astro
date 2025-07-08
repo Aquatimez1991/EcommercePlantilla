@@ -1,0 +1,191 @@
+---
+// Props: idProducto (string)
+const { idProducto } = Astro.props;
+---
+<div class="max-w-2xl mx-auto mt-10 mb-8 p-6 bg-white rounded-3xl shadow-xl border border-primary-100">
+  <h3 class="text-2xl font-bold text-primary-700 mb-2 flex items-center gap-2">
+    <span>Reseñas</span>
+    <span id="average-rating" class="flex items-center text-lg font-semibold text-yellow-500"></span>
+    <span id="reviews-count" class="text-base text-gray-500"></span>
+  </h3>
+  <div id="reviews-list" class="mb-8 flex flex-col gap-4"></div>
+  <form id="review-form" class="flex flex-col gap-3 bg-blue-50/80 p-5 rounded-2xl border border-primary-100 shadow-sm">
+    <label class="font-semibold text-primary-700">Tu nombre
+      <input type="text" id="reviewer-name" class="mt-1 w-full px-4 py-2 rounded-xl border border-primary-200 focus:ring-2 focus:ring-primary-400 focus:outline-none text-base" maxlength="32" required />
+    </label>
+    <label class="font-semibold text-primary-700">Tu reseña
+      <textarea id="review-comment" class="mt-1 w-full px-4 py-2 rounded-xl border border-primary-200 focus:ring-2 focus:ring-primary-400 focus:outline-none resize-none text-base" rows="3" maxlength="300" required></textarea>
+    </label>
+    <div class="flex items-center gap-2 mt-1">
+      <span class="font-semibold text-primary-700">Tu calificación:</span>
+      <div id="star-rating" class="flex gap-1 text-3xl cursor-pointer"></div>
+    </div>
+    <button type="submit" class="mt-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white-custom px-6 py-2 rounded-xl font-semibold shadow-md hover:from-primary-700 hover:to-primary-800 transition-all duration-200 hover:scale-105 active:scale-95">Enviar reseña</button>
+    <p id="review-form-msg" class="text-sm mt-1"></p>
+  </form>
+</div>
+
+<style>
+  .star {
+    color: #e5e7eb;
+    font-size: 2rem;
+    transition: color 0.2s, transform 0.15s;
+    filter: drop-shadow(0 1px 2px #fbbf24cc);
+  }
+  .star.filled {
+    color: #fbbf24;
+    text-shadow: 0 2px 8px #fbbf24aa;
+    transform: scale(1.15);
+  }
+  .star:hover,
+  .star.hovered {
+    color: #f59e0b;
+    transform: scale(1.2) rotate(-8deg);
+  }
+  .review-card {
+    background: #f8fafc;
+    border-radius: 1.25rem;
+    box-shadow: 0 2px 12px 0 #4b33a81a;
+    border: 1px solid #e0e7ff;
+    padding: 1.25rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    animation: fadeIn 0.5s;
+  }
+  .avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #6366f1 60%, #818cf8 100%);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px #6366f155;
+    flex-shrink: 0;
+    letter-spacing: 1px;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 600px) {
+    .review-card { flex-direction: column; align-items: flex-start; }
+    .avatar { margin-bottom: 0.5rem; }
+  }
+</style>
+
+<script>
+  const idProducto = "{idProducto}";
+  const reviewsKey = `reviews_${idProducto}`;
+  let reviews = JSON.parse(localStorage.getItem(reviewsKey) || "[]");
+  let currentRating = 0;
+
+  const reviewsList = document.getElementById('reviews-list');
+  const averageRating = document.getElementById('average-rating');
+  const reviewsCount = document.getElementById('reviews-count');
+  const reviewForm = document.getElementById('review-form');
+  const reviewerName = document.getElementById('reviewer-name');
+  const reviewComment = document.getElementById('review-comment');
+  const starRating = document.getElementById('star-rating');
+  const reviewFormMsg = document.getElementById('review-form-msg');
+
+  function renderStars(rating, container, interactive = false) {
+    container.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement('span');
+      star.className = 'star' + (i <= rating ? ' filled' : '');
+      star.innerHTML = '★';
+      if (interactive) {
+        star.addEventListener('mouseenter', () => highlightStars(i));
+        star.addEventListener('mouseleave', () => highlightStars(currentRating));
+        star.addEventListener('click', () => setRating(i));
+        star.classList.add('cursor-pointer');
+      }
+      container.appendChild(star);
+    }
+  }
+
+  function highlightStars(rating) {
+    renderStars(rating, starRating, true);
+  }
+
+  function setRating(rating) {
+    currentRating = rating;
+    renderStars(currentRating, starRating, true);
+  }
+
+  function renderReviews() {
+    reviewsList.innerHTML = '';
+    if (reviews.length === 0) {
+      reviewsList.innerHTML = '<p class="text-gray-500 text-center">Aún no hay reseñas para este producto.</p>';
+      averageRating.innerHTML = '';
+      reviewsCount.innerHTML = '';
+      return;
+    }
+    // Promedio
+    const avg = (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1);
+    averageRating.innerHTML = `${avg} <span class='text-yellow-400'>★</span>`;
+    reviewsCount.innerHTML = `(${reviews.length} reseña${reviews.length !== 1 ? 's' : ''})`;
+    // Lista
+    reviews.slice().reverse().forEach(r => {
+      const div = document.createElement('div');
+      div.className = 'review-card';
+      div.innerHTML = `
+        <div class="avatar">${r.name.charAt(0).toUpperCase()}</div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-bold text-primary-700">${r.name}</span>
+            <span class="flex gap-0.5 text-yellow-400 text-lg">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
+            <span class="text-xs text-gray-400 ml-auto">${r.date}</span>
+          </div>
+          <div class="text-gray-700 break-words">${r.comment}</div>
+        </div>
+      `;
+      reviewsList.appendChild(div);
+    });
+  }
+
+  reviewForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    reviewFormMsg.textContent = '';
+    const name = reviewerName.value.trim();
+    const comment = reviewComment.value.trim();
+    if (!name || !comment || currentRating === 0) {
+      reviewFormMsg.textContent = 'Por favor completa todos los campos y selecciona una calificación.';
+      reviewFormMsg.className = 'text-error-500 flex items-center gap-1';
+      return;
+    }
+    if (comment.length > 300) {
+      reviewFormMsg.textContent = 'El comentario es demasiado largo (máx. 300 caracteres).';
+      reviewFormMsg.className = 'text-error-500 flex items-center gap-1';
+      return;
+    }
+    const review = {
+      name,
+      comment,
+      rating: currentRating,
+      date: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })
+    };
+    reviews.push(review);
+    localStorage.setItem(reviewsKey, JSON.stringify(reviews));
+    reviewerName.value = '';
+    reviewComment.value = '';
+    setRating(0);
+    reviewFormMsg.textContent = '¡Gracias por tu reseña!';
+    reviewFormMsg.className = 'text-success-600 flex items-center gap-1';
+    renderReviews();
+    // Animación scroll a la reseña
+    setTimeout(() => {
+      reviewsList.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 200);
+  });
+
+  // Inicializar
+  setRating(0);
+  renderReviews();
+  renderStars(0, starRating, true);
+</script> 

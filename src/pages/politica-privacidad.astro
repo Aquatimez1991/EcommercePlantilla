@@ -1,0 +1,187 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import PageTransition from '../components/PageTransition.astro';
+---
+
+<Layout title="Política de Privacidad - CarpiShop">
+  <div class="grid grid-cols-1 lg:grid-cols-5 bg-gradient-to-br from-primary-600 to-primary-700 min-h-screen">
+    <Navigation currentPage="politica-privacidad" />
+    <main class="bg-white-custom m-4 lg:m-8 lg:ml-0 rounded-2xl p-8 lg:p-12 col-span-1 lg:col-span-4">
+      <PageTransition>
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-primary-700 text-4xl font-bold mb-8 text-center">Política de Privacidad</h1>
+          
+          <div class="prose prose-lg max-w-none">
+            <p class="text-gray-600 mb-8 text-center">
+              Última actualización: {new Date().toLocaleDateString('es-AR')}
+            </p>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">1. Información que Recopilamos</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Información Personal</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Nombre y apellido</li>
+                  <li>Dirección de correo electrónico</li>
+                  <li>Número de teléfono</li>
+                  <li>Dirección de envío</li>
+                  <li>Información de pago (procesada de forma segura)</li>
+                </ul>
+                
+                <h3 class="text-lg font-semibold text-gray-800 mb-3 mt-6">Información Automática</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Dirección IP</li>
+                  <li>Tipo de navegador</li>
+                  <li>Sistema operativo</li>
+                  <li>Páginas visitadas</li>
+                  <li>Tiempo de permanencia en el sitio</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">2. Cómo Utilizamos tu Información</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Procesar y completar tus pedidos</li>
+                  <li>Comunicarnos contigo sobre tu cuenta o pedidos</li>
+                  <li>Enviar información sobre productos y promociones</li>
+                  <li>Mejorar nuestros servicios y experiencia del usuario</li>
+                  <li>Prevenir fraudes y garantizar la seguridad</li>
+                  <li>Cumplir con obligaciones legales</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">3. Compartir Información</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700 mb-4">
+                  No vendemos, alquilamos ni compartimos tu información personal con terceros, excepto en las siguientes circunstancias:
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li><strong>Proveedores de servicios:</strong> Para procesar pagos, envíos y servicios de atención al cliente</li>
+                  <li><strong>Cumplimiento legal:</strong> Cuando sea requerido por ley o para proteger nuestros derechos</li>
+                  <li><strong>Consentimiento:</strong> Cuando hayas dado tu consentimiento explícito</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">4. Cookies y Tecnologías Similares</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700 mb-4">
+                  Utilizamos cookies y tecnologías similares para:
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Recordar tus preferencias</li>
+                  <li>Analizar el tráfico del sitio</li>
+                  <li>Personalizar tu experiencia</li>
+                  <li>Mejorar nuestros servicios</li>
+                </ul>
+                <p class="text-gray-700 mt-4">
+                  Puedes controlar el uso de cookies a través de la configuración de tu navegador.
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">5. Seguridad de Datos</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700 mb-4">
+                  Implementamos medidas de seguridad técnicas y organizativas para proteger tu información personal:
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li>Encriptación SSL para transmisiones seguras</li>
+                  <li>Acceso restringido a información personal</li>
+                  <li>Monitoreo regular de seguridad</li>
+                  <li>Actualizaciones de seguridad regulares</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">6. Tus Derechos</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700 mb-4">
+                  Tienes derecho a:
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                  <li><strong>Acceso:</strong> Solicitar información sobre los datos que tenemos sobre ti</li>
+                  <li><strong>Rectificación:</strong> Corregir información inexacta o incompleta</li>
+                  <li><strong>Eliminación:</strong> Solicitar la eliminación de tus datos personales</li>
+                  <li><strong>Portabilidad:</strong> Recibir tus datos en formato estructurado</li>
+                  <li><strong>Oposición:</strong> Oponerte al procesamiento de tus datos</li>
+                  <li><strong>Limitación:</strong> Solicitar la limitación del procesamiento</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">7. Retención de Datos</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700">
+                  Conservamos tu información personal solo durante el tiempo necesario para cumplir con los propósitos descritos en esta política, o según lo requiera la ley. Los datos de la cuenta se mantienen mientras tengas una cuenta activa o según sea necesario para proporcionar servicios.
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">8. Menores de Edad</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700">
+                  Nuestros servicios no están dirigidos a menores de 18 años. No recopilamos intencionalmente información personal de menores de edad. Si eres padre o tutor y crees que tu hijo nos ha proporcionado información personal, contáctanos inmediatamente.
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">9. Cambios en esta Política</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700">
+                  Podemos actualizar esta política de privacidad ocasionalmente. Te notificaremos sobre cualquier cambio significativo publicando la nueva política en nuestro sitio web y actualizando la fecha de "Última actualización". Te recomendamos revisar esta política periódicamente.
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-8">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">10. Contacto</h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <p class="text-gray-700 mb-4">
+                  Si tienes preguntas sobre esta política de privacidad o sobre cómo manejamos tu información personal, contáctanos:
+                </p>
+                <div class="space-y-2 text-gray-700">
+                  <p><strong>Email:</strong> privacidad@carpishop.com</p>
+                  <p><strong>Teléfono:</strong> +54 11 1234-5678</p>
+                  <p><strong>Dirección:</strong> Av. Corrientes 1234, Buenos Aires, Argentina</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Enlaces adicionales -->
+          <div class="mt-12 bg-gradient-to-r from-primary-50 to-white p-8 rounded-xl border border-primary-100">
+            <h2 class="text-2xl font-semibold text-primary-700 mb-4 text-center">Documentos Relacionados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a href="/preguntas-frecuentes" class="flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <i class="bi bi-question-circle text-primary-600 text-xl"></i>
+                <div>
+                  <h3 class="font-semibold text-gray-900">Preguntas Frecuentes</h3>
+                  <p class="text-sm text-gray-600">Resuelve tus dudas</p>
+                </div>
+              </a>
+              <a href="/contacto" class="flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-200">
+                <i class="bi bi-envelope text-primary-600 text-xl"></i>
+                <div>
+                  <h3 class="font-semibold text-gray-900">Contacto</h3>
+                  <p class="text-sm text-gray-600">Habla con nosotros</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </PageTransition>
+    </main>
+  </div>
+</Layout> 

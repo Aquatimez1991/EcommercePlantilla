@@ -1,0 +1,580 @@
+---
+export interface Props {
+  categorias: Array<{id: string, nombre: string}>;
+  precios: {min: number, max: number};
+}
+
+const { categorias, precios } = Astro.props;
+---
+
+<div class="bg-white rounded-xl border border-gray-200 mb-6">
+  <!-- Header de filtros moderno -->
+  <div class="flex items-center justify-between gap-4 p-4 border-b border-gray-100 bg-white rounded-t-xl shadow-sm">
+    <h3 class="text-xl font-bold text-gray-900">Filtros</h3>
+    <div class="flex items-center gap-2">
+      <button id="limpiar-filtros" class="flex items-center gap-1 px-3 py-1 rounded-lg text-primary-600 hover:bg-primary-50 transition font-medium">
+        <i class="bi bi-x-circle"></i>
+        <span>Limpiar</span>
+      </button>
+    </div>
+  </div>
+  <!-- Contenido de filtros SIEMPRE visible en desktop -->
+  <div class="p-6">
+
+  <!-- Categorías -->
+  <div class="mb-6">
+    <h4 class="font-medium text-gray-900 mb-3">Categorías</h4>
+    <div class="space-y-2">
+      <label class="flex items-center">
+        <input type="checkbox" value="todos" class="filtro-categoria mr-3 rounded border-gray-300 text-primary-600 focus:ring-primary-500" checked>
+        <span class="text-sm text-gray-700">Todas las categorías</span>
+      </label>
+      {categorias.map(categoria => (
+        <label class="flex items-center">
+          <input type="checkbox" value={categoria.id} class="filtro-categoria mr-3 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+          <span class="text-sm text-gray-700">{categoria.nombre}</span>
+        </label>
+      ))}
+    </div>
+  </div>
+
+  <!-- Rango de Precios -->
+  <div class="mb-6">
+    <h4 class="font-medium text-gray-900 mb-3">Rango de Precios</h4>
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <span class="text-sm text-gray-600">$<span id="precio-min">0</span></span>
+        <span class="text-sm text-gray-600">$<span id="precio-max">{precios.max}</span></span>
+      </div>
+      <div class="relative">
+        <input type="range" id="precio-slider" min={precios.min} max={precios.max} value={precios.max} 
+               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
+        <div class="absolute top-0 left-0 right-0 h-2 bg-primary-200 rounded-lg pointer-events-none"></div>
+      </div>
+      <div class="flex space-x-2">
+        <input type="number" id="precio-min-input" placeholder="Mín" min={precios.min} max={precios.max}
+               class="w-1/2 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        <input type="number" id="precio-max-input" placeholder="Máx" min={precios.min} max={precios.max}
+               class="w-1/2 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+      </div>
+    </div>
+  </div>
+
+  <!-- Ordenar por -->
+  <div class="mb-6">
+    <h4 class="font-medium text-gray-900 mb-3">Ordenar por</h4>
+    <select id="ordenar-por" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+      <option value="relevancia">Más relevantes</option>
+      <option value="precio-asc">Precio: Menor a Mayor</option>
+      <option value="precio-desc">Precio: Mayor a Menor</option>
+      <option value="nombre-asc">Nombre: A-Z</option>
+      <option value="nombre-desc">Nombre: Z-A</option>
+      <option value="nuevos">Más nuevos</option>
+    </select>
+  </div>
+
+  <!-- Tallas -->
+  <div class="mb-6">
+    <h4 class="font-medium text-gray-900 mb-3">Tallas</h4>
+    <div class="grid grid-cols-3 gap-2">
+      {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map(talla => (
+        <label class="flex items-center justify-center p-2 border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">
+          <input type="checkbox" value={talla} class="filtro-talla mr-2 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+          <span class="text-sm font-medium">{talla}</span>
+        </label>
+      ))}
+    </div>
+  </div>
+
+  <!-- Colores -->
+  <div class="mb-6">
+    <h4 class="font-medium text-gray-900 mb-3">Colores</h4>
+    <div class="grid grid-cols-4 gap-3">
+      {[
+        {nombre: 'Negro', color: 'bg-black'},
+        {nombre: 'Blanco', color: 'bg-white border border-gray-300'},
+        {nombre: 'Azul', color: 'bg-blue-500'},
+        {nombre: 'Rojo', color: 'bg-red-500'},
+        {nombre: 'Verde', color: 'bg-green-500'},
+        {nombre: 'Amarillo', color: 'bg-yellow-400'},
+        {nombre: 'Gris', color: 'bg-gray-500'},
+        {nombre: 'Rosa', color: 'bg-pink-400'}
+      ].map(color => (
+        <label class="flex flex-col items-center cursor-pointer group">
+          <input type="checkbox" value={color.nombre.toLowerCase()} class="filtro-color hidden">
+          <div class={`w-8 h-8 rounded-full ${color.color} mb-1 border-2 border-transparent group-hover:border-primary-500 transition-colors`}></div>
+          <span class="text-xs text-gray-600 text-center">{color.nombre}</span>
+        </label>
+      ))}
+    </div>
+  </div>
+
+  <!-- Estado del producto -->
+  <div class="mb-6">
+    <h4 class="font-medium text-gray-900 mb-3">Estado</h4>
+    <div class="space-y-2">
+      <label class="flex items-center">
+        <input type="checkbox" value="nuevo" class="filtro-estado mr-3 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+        <span class="text-sm text-gray-700">Nuevo</span>
+      </label>
+      <label class="flex items-center">
+        <input type="checkbox" value="oferta" class="filtro-estado mr-3 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+        <span class="text-sm text-gray-700">En oferta</span>
+      </label>
+      <label class="flex items-center">
+        <input type="checkbox" value="agotado" class="filtro-estado mr-3 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+        <span class="text-sm text-gray-700">Agotado</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Stock -->
+  <div class="mb-6">
+    <h4 class="font-medium text-gray-900 mb-3">Disponibilidad</h4>
+    <div class="space-y-2">
+      <label class="flex items-center">
+        <input type="checkbox" value="en-stock" class="filtro-stock mr-3 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+        <span class="text-sm text-gray-700">En stock</span>
+      </label>
+      <label class="flex items-center">
+        <input type="checkbox" value="poco-stock" class="filtro-stock mr-3 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+        <span class="text-sm text-gray-700">Poco stock (≤5 unidades)</span>
+      </label>
+      <label class="flex items-center">
+        <input type="checkbox" value="agotado-stock" class="filtro-stock mr-3 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+        <span class="text-sm text-gray-700">Sin stock</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Botón aplicar filtros -->
+  <button id="aplicar-filtros" class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-200 hover:scale-105 hover:shadow-lg">
+    Aplicar Filtros
+  </button>
+</div>
+
+<style>
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #4b33a8;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #4b33a8;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .filtro-color:checked + div {
+    border-color: #4b33a8;
+    border-width: 3px;
+  }
+
+  #filtros-contenido {
+    max-height: 0;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  #filtros-contenido:not(.hidden) {
+    max-height: 2000px;
+  }
+
+  #toggle-filtros, #limpiar-filtros {
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  #toggle-filtros:hover, #limpiar-filtros:hover {
+    background: #f3f0ff;
+    color: #4b33a8;
+  }
+  #toggle-icon {
+    transition: transform 0.3s;
+  }
+  #toggle-filtros[aria-expanded="true"] #toggle-icon {
+    transform: rotate(180deg);
+  }
+  .shadow-sm {
+    box-shadow: 0 1px 4px 0 rgba(75, 51, 168, 0.06);
+  }
+</style>
+
+<script>
+  // Funcionalidad de filtros avanzados
+  let productosOriginales = [];
+  let filtrosActivos = {
+    categorias: [],
+    precioMax: 0,
+    ordenar: 'relevancia',
+    tallas: [],
+    colores: [],
+    estados: [],
+    stock: []
+  };
+
+  // Toggle filtros
+  function toggleFiltros() {
+    const contenido = document.getElementById('filtros-contenido');
+    const toggleText = document.getElementById('toggle-text');
+    const toggleIcon = document.getElementById('toggle-icon');
+    const toggleButton = document.getElementById('toggle-filtros');
+    
+    if (contenido.classList.contains('hidden')) {
+      // Mostrar filtros
+      contenido.classList.remove('hidden');
+      contenido.style.maxHeight = contenido.scrollHeight + 'px';
+      toggleText.textContent = 'Ocultar filtros';
+      toggleIcon.style.transform = 'rotate(180deg)';
+      toggleButton.setAttribute('aria-expanded', 'true');
+    } else {
+      // Ocultar filtros
+      contenido.style.maxHeight = '0px';
+      setTimeout(() => {
+        contenido.classList.add('hidden');
+      }, 300);
+      toggleText.textContent = 'Mostrar filtros';
+      toggleIcon.style.transform = 'rotate(0deg)';
+      toggleButton.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  // Inicializar filtros
+  function inicializarFiltros() {
+    // Obtener productos originales
+    productosOriginales = Array.from(document.querySelectorAll('.product-card')).map(card => {
+      const producto = {
+        elemento: card,
+        categoria: card.dataset.categoria,
+        precio: parseFloat(card.dataset.precio),
+        nombre: card.dataset.nombre,
+        tallas: card.dataset.tallas ? card.dataset.tallas.split(',') : [],
+        colores: card.dataset.colores ? card.dataset.colores.split(',') : [],
+        estado: card.dataset.estado || 'nuevo'
+      };
+      return producto;
+    });
+
+    // Configurar eventos
+    configurarEventos();
+  }
+
+  // Configurar eventos de filtros
+  function configurarEventos() {
+    // Filtros de categoría
+    document.querySelectorAll('.filtro-categoria').forEach(checkbox => {
+      checkbox.addEventListener('change', manejarFiltroCategoria);
+    });
+
+    // Filtro de precio
+    const precioSlider = document.getElementById('precio-slider');
+    const precioMinInput = document.getElementById('precio-min-input');
+    const precioMaxInput = document.getElementById('precio-max-input');
+
+    if (precioSlider) {
+      precioSlider.addEventListener('input', (e) => {
+        document.getElementById('precio-max').textContent = e.target.value;
+        precioMaxInput.value = e.target.value;
+        filtrosActivos.precioMax = parseInt(e.target.value);
+      });
+    }
+
+    if (precioMinInput) {
+      precioMinInput.addEventListener('input', (e) => {
+        filtrosActivos.precioMin = parseInt(e.target.value) || 0;
+      });
+    }
+
+    if (precioMaxInput) {
+      precioMaxInput.addEventListener('input', (e) => {
+        filtrosActivos.precioMax = parseInt(e.target.value) || 999999;
+        if (precioSlider) {
+          precioSlider.value = e.target.value;
+          document.getElementById('precio-max').textContent = e.target.value;
+        }
+      });
+    }
+
+    // Ordenar
+    document.getElementById('ordenar-por')?.addEventListener('change', (e) => {
+      filtrosActivos.ordenar = e.target.value;
+    });
+
+    // Filtros de talla
+    document.querySelectorAll('.filtro-talla').forEach(checkbox => {
+      checkbox.addEventListener('change', manejarFiltroTalla);
+    });
+
+    // Filtros de color
+    document.querySelectorAll('.filtro-color').forEach(checkbox => {
+      checkbox.addEventListener('change', manejarFiltroColor);
+    });
+
+    // Filtros de estado
+    document.querySelectorAll('.filtro-estado').forEach(checkbox => {
+      checkbox.addEventListener('change', manejarFiltroEstado);
+    });
+
+    // Filtros de stock
+    document.querySelectorAll('.filtro-stock').forEach(checkbox => {
+      checkbox.addEventListener('change', manejarFiltroStock);
+    });
+
+    // Botón aplicar filtros
+    document.getElementById('aplicar-filtros')?.addEventListener('click', aplicarFiltros);
+
+    // Botón limpiar filtros
+    document.getElementById('limpiar-filtros')?.addEventListener('click', limpiarFiltros);
+
+    // Botón toggle filtros
+    document.getElementById('toggle-filtros')?.addEventListener('click', toggleFiltros);
+  }
+
+  // Manejar filtro de categoría
+  function manejarFiltroCategoria(e) {
+    const categoria = e.target.value;
+    
+    if (categoria === 'todos') {
+      // Si se selecciona "todos", deseleccionar otros
+      document.querySelectorAll('.filtro-categoria').forEach(cb => {
+        if (cb.value !== 'todos') cb.checked = false;
+      });
+      filtrosActivos.categorias = [];
+    } else {
+      // Deseleccionar "todos" si se selecciona una categoría específica
+      document.querySelector('input[value="todos"]').checked = false;
+      
+      if (e.target.checked) {
+        filtrosActivos.categorias.push(categoria);
+      } else {
+        filtrosActivos.categorias = filtrosActivos.categorias.filter(c => c !== categoria);
+      }
+    }
+  }
+
+  // Manejar filtro de talla
+  function manejarFiltroTalla(e) {
+    const talla = e.target.value;
+    
+    if (e.target.checked) {
+      filtrosActivos.tallas.push(talla);
+    } else {
+      filtrosActivos.tallas = filtrosActivos.tallas.filter(t => t !== talla);
+    }
+  }
+
+  // Manejar filtro de color
+  function manejarFiltroColor(e) {
+    const color = e.target.value;
+    
+    if (e.target.checked) {
+      filtrosActivos.colores.push(color);
+    } else {
+      filtrosActivos.colores = filtrosActivos.colores.filter(c => c !== color);
+    }
+  }
+
+  // Manejar filtro de estado
+  function manejarFiltroEstado(e) {
+    const estado = e.target.value;
+    
+    if (e.target.checked) {
+      filtrosActivos.estados.push(estado);
+    } else {
+      filtrosActivos.estados = filtrosActivos.estados.filter(e => e !== estado);
+    }
+  }
+
+  // Manejar filtro de stock
+  function manejarFiltroStock(e) {
+    const stock = e.target.value;
+    
+    if (e.target.checked) {
+      filtrosActivos.stock.push(stock);
+    } else {
+      filtrosActivos.stock = filtrosActivos.stock.filter(s => s !== stock);
+    }
+  }
+
+  // Aplicar filtros
+  function aplicarFiltros() {
+    const productosFiltrados = productosOriginales.filter(producto => {
+      // Filtro por categoría
+      if (filtrosActivos.categorias.length > 0 && !filtrosActivos.categorias.includes(producto.categoria)) {
+        return false;
+      }
+
+      // Filtro por precio
+      if (producto.precio > filtrosActivos.precioMax || producto.precio < (filtrosActivos.precioMin || 0)) {
+        return false;
+      }
+
+      // Filtro por talla
+      if (filtrosActivos.tallas.length > 0 && !filtrosActivos.tallas.some(talla => producto.tallas.includes(talla))) {
+        return false;
+      }
+
+      // Filtro por color
+      if (filtrosActivos.colores.length > 0 && !filtrosActivos.colores.some(color => producto.colores.includes(color))) {
+        return false;
+      }
+
+      // Filtro por estado
+      if (filtrosActivos.estados.length > 0 && !filtrosActivos.estados.includes(producto.estado)) {
+        return false;
+      }
+
+      // Filtro por stock
+      if (filtrosActivos.stock.length > 0) {
+        const stockProducto = parseInt(producto.elemento.dataset.stock) || 0;
+        const cumpleFiltroStock = filtrosActivos.stock.some(filtro => {
+          switch (filtro) {
+            case 'en-stock':
+              return stockProducto > 5;
+            case 'poco-stock':
+              return stockProducto > 0 && stockProducto <= 5;
+            case 'agotado-stock':
+              return stockProducto === 0;
+            default:
+              return false;
+          }
+        });
+        if (!cumpleFiltroStock) return false;
+      }
+
+      return true;
+    });
+
+    // Ordenar productos
+    productosFiltrados.sort((a, b) => {
+      switch (filtrosActivos.ordenar) {
+        case 'precio-asc':
+          return a.precio - b.precio;
+        case 'precio-desc':
+          return b.precio - a.precio;
+        case 'nombre-asc':
+          return a.nombre.localeCompare(b.nombre);
+        case 'nombre-desc':
+          return b.nombre.localeCompare(a.nombre);
+        default:
+          return 0;
+      }
+    });
+
+    // Mostrar productos filtrados
+    mostrarProductosFiltrados(productosFiltrados);
+  }
+
+  // Mostrar productos filtrados
+  function mostrarProductosFiltrados(productos) {
+    const contenedor = document.getElementById('contenedor-productos');
+    if (!contenedor) return;
+
+    // Ocultar todos los productos
+    productosOriginales.forEach(producto => {
+      producto.elemento.style.display = 'none';
+    });
+
+    // Mostrar productos filtrados
+    productos.forEach(producto => {
+      producto.elemento.style.display = 'block';
+    });
+
+    // Mostrar mensaje si no hay resultados
+    const mensajeNoResultados = document.getElementById('no-resultados');
+    if (productos.length === 0) {
+      if (!mensajeNoResultados) {
+        const mensaje = document.createElement('div');
+        mensaje.id = 'no-resultados';
+        mensaje.className = 'col-span-full text-center py-12';
+        mensaje.innerHTML = `
+          <div class="text-gray-500">
+            <i class="bi bi-search text-4xl mb-4"></i>
+            <h3 class="text-lg font-medium mb-2">No se encontraron productos</h3>
+            <p class="text-sm">Intenta ajustar los filtros o buscar algo diferente</p>
+          </div>
+        `;
+        contenedor.appendChild(mensaje);
+      }
+    } else if (mensajeNoResultados) {
+      mensajeNoResultados.remove();
+    }
+
+    // Actualizar contador
+    actualizarContadorProductos(productos.length);
+  }
+
+  // Actualizar contador de productos
+  function actualizarContadorProductos(cantidad) {
+    const contador = document.getElementById('contador-productos');
+    if (contador) {
+      contador.textContent = `${cantidad} producto${cantidad !== 1 ? 's' : ''}`;
+    }
+  }
+
+  // Limpiar filtros
+  function limpiarFiltros() {
+    // Resetear checkboxes
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.checked = false;
+    });
+    document.querySelector('input[value="todos"]').checked = true;
+
+    // Resetear precio
+    const precioSlider = document.getElementById('precio-slider');
+    const precioMinInput = document.getElementById('precio-min-input');
+    const precioMaxInput = document.getElementById('precio-max-input');
+    
+    if (precioSlider) precioSlider.value = precioSlider.max;
+    if (precioMinInput) precioMinInput.value = '';
+    if (precioMaxInput) precioMaxInput.value = '';
+    document.getElementById('precio-max').textContent = precioSlider?.max || 0;
+
+    // Resetear ordenar
+    document.getElementById('ordenar-por').value = 'relevancia';
+
+    // Resetear filtros activos
+    filtrosActivos = {
+      categorias: [],
+      precioMax: parseInt(precioSlider?.max) || 0,
+      ordenar: 'relevancia',
+      tallas: [],
+      colores: [],
+      estados: [],
+      stock: []
+    };
+
+    // Mostrar todos los productos
+    productosOriginales.forEach(producto => {
+      producto.elemento.style.display = 'block';
+    });
+
+    // Remover mensaje de no resultados
+    const mensajeNoResultados = document.getElementById('no-resultados');
+    if (mensajeNoResultados) {
+      mensajeNoResultados.remove();
+    }
+
+    // Actualizar contador
+    actualizarContadorProductos(productosOriginales.length);
+  }
+
+  // Inicializar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarFiltros);
+  } else {
+    inicializarFiltros();
+  }
+</script> 

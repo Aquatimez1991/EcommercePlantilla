@@ -1,0 +1,266 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import PageTransition from '../components/PageTransition.astro';
+---
+
+<Layout title="Preguntas Frecuentes - CarpiShop">
+  <div class="grid grid-cols-1 lg:grid-cols-5 bg-gradient-to-br from-primary-600 to-primary-700 min-h-screen">
+    <Navigation currentPage="preguntas-frecuentes" />
+    <main class="bg-white-custom m-4 lg:m-8 lg:ml-0 rounded-2xl p-8 lg:p-12 col-span-1 lg:col-span-4">
+      <PageTransition>
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-3xl font-bold text-primary-700 mb-4">Preguntas Frecuentes</h1>
+          <ul class="mb-4 space-y-4">
+            <li>
+              <strong>¿Realizan envíos a todo el Perú?</strong>
+              <p>Sí, enviamos a todo el país con operadores logísticos confiables. El tiempo de entrega en Lima es de 1-2 días hábiles y para provincias de 2-5 días hábiles.</p>
+            </li>
+            <li>
+              <strong>¿Qué métodos de pago aceptan?</strong>
+              <p>Aceptamos pagos con tarjeta, Yape, Plin y transferencias bancarias.</p>
+            </li>
+            <li>
+              <strong>¿Puedo pagar contra entrega?</strong>
+              <p>Sí, ofrecemos pago contra entrega en Lima Metropolitana.</p>
+            </li>
+            <li>
+              <strong>¿Cómo solicito un cambio o devolución?</strong>
+              <p>Puedes solicitarlo dentro de los 7 días de recibido el producto. El reembolso se realiza en soles peruanos (S/).</p>
+            </li>
+            <li>
+              <strong>¿Cuál es el horario de atención?</strong>
+              <p>Atendemos de lunes a sábado de 9:00am a 7:00pm.</p>
+            </li>
+          </ul>
+          
+          <div class="space-y-4">
+            <!-- Pedidos y Envíos -->
+            <div class="faq-section">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">Pedidos y Envíos</h2>
+              
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Cuánto tiempo tarda en llegar mi pedido?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Los tiempos de entrega varían según tu ubicación:</p>
+                  <ul class="list-disc list-inside mt-2 text-gray-600">
+                    <li>Buenos Aires: 1-2 días hábiles</li>
+                    <li>Interior del país: 3-5 días hábiles</li>
+                    <li>En zonas remotas: 5-7 días hábiles</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Cuáles son los métodos de envío disponibles?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Ofrecemos varios métodos de envío:</p>
+                  <ul class="list-disc list-inside mt-2 text-gray-600">
+                    <li>Envío estándar (3-5 días hábiles)</li>
+                    <li>Envío express (1-2 días hábiles)</li>
+                    <li>Retiro en sucursal (gratis)</li>
+                    <li>Envío a domicilio con seguimiento</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Puedo rastrear mi pedido?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Sí, una vez que tu pedido sea despachado, recibirás un email con el número de seguimiento y podrás rastrearlo en tiempo real desde tu cuenta o contactándonos.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Devoluciones y Cambios -->
+            <div class="faq-section">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">Devoluciones y Cambios</h2>
+              
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Cuál es la política de devoluciones?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Aceptamos devoluciones hasta 30 días después de la compra, siempre que el producto esté en su estado original, sin usar y con todas las etiquetas.</p>
+                </div>
+              </div>
+
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Puedo cambiar el talle o color de mi producto?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Sí, puedes solicitar un cambio por talle o color dentro de los 30 días posteriores a la compra, sujeto a disponibilidad de stock.</p>
+                </div>
+              </div>
+
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Cómo proceso una devolución?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Para procesar una devolución:</p>
+                  <ol class="list-decimal list-inside mt-2 text-gray-600">
+                    <li>Contacta nuestro servicio al cliente</li>
+                    <li>Proporciona el número de pedido</li>
+                    <li>Indica el motivo de la devolución</li>
+                    <li>Recibirás instrucciones para el envío de devolución</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pagos -->
+            <div class="faq-section">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">Pagos</h2>
+              
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Qué métodos de pago aceptan?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Aceptamos múltiples métodos de pago:</p>
+                  <ul class="list-disc list-inside mt-2 text-gray-600">
+                    <li>Tarjetas de crédito y débito</li>
+                    <li>Transferencias bancarias</li>
+                    <li>Pago en efectivo contra entrega</li>
+                    <li>Billeteras digitales (Mercado Pago, etc.)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Es seguro pagar en línea?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Sí, utilizamos tecnología SSL de encriptación para proteger toda la información de pago. Además, trabajamos con procesadores de pago certificados y seguros.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Productos -->
+            <div class="faq-section">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">Productos</h2>
+              
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Cómo sé qué talle elegir?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Cada producto incluye una guía de talles detallada con medidas en centímetros. También puedes consultar nuestras recomendaciones de talles según tu altura y peso.</p>
+                </div>
+              </div>
+
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Los colores en las fotos son exactos?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Hacemos todo lo posible para que las fotos sean fieles al producto real, pero los colores pueden variar ligeramente debido a la configuración de pantallas y condiciones de iluminación.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cuenta y Seguridad -->
+            <div class="faq-section">
+              <h2 class="text-2xl font-semibold text-primary-700 mb-4">Cuenta y Seguridad</h2>
+              
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Puedo comprar sin crear una cuenta?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">Sí, puedes realizar compras como invitado, pero te recomendamos crear una cuenta para acceder a beneficios como historial de pedidos, descuentos exclusivos y seguimiento más fácil.</p>
+                </div>
+              </div>
+
+              <div class="faq-item bg-white rounded-lg border border-gray-200 mb-3">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200">
+                  <span class="font-medium text-gray-900">¿Cómo puedo recuperar mi contraseña?</span>
+                  <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                  <p class="text-gray-600">En la página de login, haz clic en "¿Olvidaste tu contraseña?" e ingresa tu email. Recibirás un enlace para restablecer tu contraseña de forma segura.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contacto adicional -->
+          <div class="mt-12 bg-gradient-to-r from-primary-50 to-white p-8 rounded-xl border border-primary-100 text-center">
+            <h2 class="text-2xl font-semibold text-primary-700 mb-4">¿No encontraste tu respuesta?</h2>
+            <p class="text-gray-600 mb-6">Nuestro equipo de atención al cliente está aquí para ayudarte</p>
+            <a href="/contacto" class="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-8 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-200 hover:scale-105 hover:shadow-lg">
+              Contactar Soporte
+            </a>
+          </div>
+        </div>
+      </PageTransition>
+    </main>
+  </div>
+
+  <script>
+    // Funcionalidad del acordeón FAQ
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqItem = button.closest('.faq-item');
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = button.querySelector('.faq-icon');
+        
+        // Cerrar otros items abiertos
+        document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+          if (otherAnswer !== answer) {
+            otherAnswer.classList.add('hidden');
+            otherAnswer.closest('.faq-item').querySelector('.faq-icon').classList.remove('rotate-180');
+          }
+        });
+        
+        // Toggle del item actual
+        answer.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+      });
+    });
+  </script>
+</Layout> 

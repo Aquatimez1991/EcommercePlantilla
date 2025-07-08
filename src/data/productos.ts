@@ -1,7 +1,10 @@
+import type { ImageMetadata } from 'astro';
+import { imagenes } from './imagenes';
+
 export interface Producto {
   id: string;
   titulo: string;
-  imagen: string;
+  imagen: ImageMetadata;
   categoria: {
     nombre: string;
     id: string;
@@ -11,13 +14,15 @@ export interface Producto {
   detalles: string[];
   talles?: string[];
   colores?: string[];
+  estado?: 'nuevo' | 'oferta' | 'agotado';
+  stock?: number;
 }
 
 export const productos: Producto[] = [
   {
     id: "abrigo-01",
     titulo: "Abrigo Clásico de Lana",
-    imagen: "/assets/images/abrigos/01.jpg",
+    imagen: imagenes['abrigo-01'],
     categoria: {
       nombre: "Abrigos",
       id: "abrigos"
@@ -32,12 +37,14 @@ export const productos: Producto[] = [
       "Cierre frontal con botones"
     ],
     talles: ["S", "M", "L", "XL"],
-    colores: ["Negro", "Gris", "Beige"]
+    colores: ["Negro", "Gris", "Beige"],
+    estado: "nuevo",
+    stock: 15
   },
   {
     id: "abrigo-02",
     titulo: "Abrigo Moderno Oversize",
-    imagen: "/assets/images/abrigos/02.jpg",
+    imagen: imagenes['abrigo-02'],
     categoria: {
       nombre: "Abrigos",
       id: "abrigos"
@@ -52,12 +59,14 @@ export const productos: Producto[] = [
       "Capucha desmontable"
     ],
     talles: ["S", "M", "L", "XL"],
-    colores: ["Negro", "Blanco", "Azul Marino"]
+    colores: ["Negro", "Blanco", "Azul Marino"],
+    estado: "oferta",
+    stock: 8
   },
   {
     id: "abrigo-03",
     titulo: "Abrigo Deportivo",
-    imagen: "/assets/images/abrigos/03.jpg",
+    imagen: imagenes['abrigo-03'],
     categoria: {
       nombre: "Abrigos",
       id: "abrigos"
@@ -72,12 +81,14 @@ export const productos: Producto[] = [
       "Cintura elástica"
     ],
     talles: ["S", "M", "L", "XL"],
-    colores: ["Negro", "Gris", "Verde"]
+    colores: ["Negro", "Gris", "Verde"],
+    estado: "nuevo",
+    stock: 12
   },
   {
     id: "abrigo-04",
     titulo: "Abrigo Elegante de Oficina",
-    imagen: "/assets/images/abrigos/04.jpg",
+    imagen: imagenes['abrigo-04'],
     categoria: {
       nombre: "Abrigos",
       id: "abrigos"
@@ -92,12 +103,14 @@ export const productos: Producto[] = [
       "Corte recto"
     ],
     talles: ["S", "M", "L", "XL"],
-    colores: ["Negro", "Gris Oscuro", "Azul"]
+    colores: ["Negro", "Gris Oscuro", "Azul"],
+    estado: "nuevo",
+    stock: 20
   },
   {
     id: "abrigo-05",
     titulo: "Abrigo Casual de Algodón",
-    imagen: "/assets/images/abrigos/05.jpg",
+    imagen: imagenes['abrigo-05'],
     categoria: {
       nombre: "Abrigos",
       id: "abrigos"
@@ -112,12 +125,14 @@ export const productos: Producto[] = [
       "Corte relajado"
     ],
     talles: ["S", "M", "L", "XL"],
-    colores: ["Beige", "Gris Claro", "Azul Claro"]
+    colores: ["Beige", "Gris Claro", "Azul Claro"],
+    estado: "agotado",
+    stock: 0
   },
   {
     id: "camiseta-01",
     titulo: "Camiseta Básica de Algodón",
-    imagen: "/assets/images/camisetas/01.jpg",
+    imagen: imagenes['camiseta-01'],
     categoria: {
       nombre: "Camisetas",
       id: "camisetas"
@@ -132,12 +147,14 @@ export const productos: Producto[] = [
       "Sin costuras laterales"
     ],
     talles: ["XS", "S", "M", "L", "XL", "XXL"],
-    colores: ["Blanco", "Negro", "Gris", "Azul"]
+    colores: ["Blanco", "Negro", "Gris", "Azul"],
+    estado: "nuevo",
+    stock: 25
   },
   {
     id: "camiseta-02",
     titulo: "Camiseta Premium Pima",
-    imagen: "/assets/images/camisetas/02.jpg",
+    imagen: imagenes['camiseta-02'],
     categoria: {
       nombre: "Camisetas",
       id: "camisetas"
@@ -152,12 +169,14 @@ export const productos: Producto[] = [
       "Acabado premium"
     ],
     talles: ["S", "M", "L", "XL"],
-    colores: ["Blanco", "Negro", "Azul Marino"]
+    colores: ["Blanco", "Negro", "Azul Marino"],
+    estado: "oferta",
+    stock: 10
   },
   {
     id: "camiseta-03",
     titulo: "Camiseta Deportiva",
-    imagen: "/assets/images/camisetas/03.jpg",
+    imagen: imagenes['camiseta-03'],
     categoria: {
       nombre: "Camisetas",
       id: "camisetas"
@@ -177,7 +196,7 @@ export const productos: Producto[] = [
   {
     id: "camiseta-04",
     titulo: "Camiseta Polo Clásica",
-    imagen: "/assets/images/camisetas/04.jpg",
+    imagen: imagenes['camiseta-04'],
     categoria: {
       nombre: "Camisetas",
       id: "camisetas"
@@ -197,7 +216,7 @@ export const productos: Producto[] = [
   {
     id: "camiseta-05",
     titulo: "Camiseta de Manga Larga",
-    imagen: "/assets/images/camisetas/05.jpg",
+    imagen: imagenes['camiseta-05'],
     categoria: {
       nombre: "Camisetas",
       id: "camisetas"
@@ -217,7 +236,7 @@ export const productos: Producto[] = [
   {
     id: "camiseta-06",
     titulo: "Camiseta V-Neck",
-    imagen: "/assets/images/camisetas/06.jpg",
+    imagen: imagenes['camiseta-06'],
     categoria: {
       nombre: "Camisetas",
       id: "camisetas"
@@ -237,7 +256,7 @@ export const productos: Producto[] = [
   {
     id: "camiseta-07",
     titulo: "Camiseta Oversize",
-    imagen: "/assets/images/camisetas/07.jpg",
+    imagen: imagenes['camiseta-07'],
     categoria: {
       nombre: "Camisetas",
       id: "camisetas"
@@ -257,7 +276,7 @@ export const productos: Producto[] = [
   {
     id: "camiseta-08",
     titulo: "Camiseta Estampada",
-    imagen: "/assets/images/camisetas/08.jpg",
+    imagen: imagenes['camiseta-08'],
     categoria: {
       nombre: "Camisetas",
       id: "camisetas"
@@ -277,7 +296,7 @@ export const productos: Producto[] = [
   {
     id: "pantalon-01",
     titulo: "Pantalón Chino Clásico",
-    imagen: "/assets/images/pantalones/01.jpg",
+    imagen: imagenes['pantalon-01'],
     categoria: {
       nombre: "Pantalones",
       id: "pantalones"
@@ -297,7 +316,7 @@ export const productos: Producto[] = [
   {
     id: "pantalon-02",
     titulo: "Pantalón Vaquero Premium",
-    imagen: "/assets/images/pantalones/02.jpg",
+    imagen: imagenes['pantalon-02'],
     categoria: {
       nombre: "Pantalones",
       id: "pantalones"
@@ -317,7 +336,7 @@ export const productos: Producto[] = [
   {
     id: "pantalon-03",
     titulo: "Pantalón Deportivo",
-    imagen: "/assets/images/pantalones/03.jpg",
+    imagen: imagenes['pantalon-03'],
     categoria: {
       nombre: "Pantalones",
       id: "pantalones"
@@ -337,7 +356,7 @@ export const productos: Producto[] = [
   {
     id: "pantalon-04",
     titulo: "Pantalón de Vestir",
-    imagen: "/assets/images/pantalones/04.jpg",
+    imagen: imagenes['pantalon-04'],
     categoria: {
       nombre: "Pantalones",
       id: "pantalones"
@@ -357,7 +376,7 @@ export const productos: Producto[] = [
   {
     id: "pantalon-05",
     titulo: "Pantalón Cargo",
-    imagen: "/assets/images/pantalones/05.jpg",
+    imagen: imagenes['pantalon-05'],
     categoria: {
       nombre: "Pantalones",
       id: "pantalones"

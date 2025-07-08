@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PageTransition from '../../components/PageTransition.astro';
+import { Image } from 'astro:assets';
 import { productos } from '../../data/productos';
+import ProductReviews from '../../components/ProductReviews.astro';
 
 export async function getStaticPaths() {
   return productos.map((producto) => ({
@@ -54,11 +56,15 @@ const { producto } = Astro.props;
       <div class="w-full bg-white rounded-2xl shadow-lg p-4 md:p-6 flex flex-col lg:flex-row gap-4 items-center border border-neutral-200 mx-auto overflow-x-hidden">
         <!-- Product Image -->
         <div class="flex-1 flex items-center justify-center w-full max-w-md min-w-0">
-          <img 
+          <Image 
             src={producto.imagen} 
             alt={producto.titulo}
             class="rounded-xl w-full object-cover object-center shadow-lg max-h-[340px] md:max-h-[380px] lg:max-h-[400px]"
-            style="filter: brightness(1);"
+            width={500}
+            height={600}
+            format="webp"
+            quality={85}
+            loading="eager"
           />
         </div>
         <!-- Product Info -->
@@ -127,7 +133,7 @@ const { producto } = Astro.props;
               data-product-id={producto.id}
               data-product-title={producto.titulo}
               data-product-price={producto.precio}
-              data-product-image={producto.imagen}
+              data-product-image={producto.imagen.src}
               class="w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center space-x-2 transform hover:-translate-y-1"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,6 +155,9 @@ const { producto } = Astro.props;
     <span class="font-semibold">Producto agregado</span>
     <span class="hidden sm:inline">- Click para ver el carrito</span>
   </div>
+
+  <!-- Al final del contenido principal del producto -->
+  <ProductReviews idProducto={Astro.params.id} />
 </Layout>
 
 <script>
